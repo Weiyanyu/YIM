@@ -8,10 +8,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import top.yeonon.yim.handler.PacketDecoder;
 import top.yeonon.yim.handler.PacketEncoder;
-import top.yeonon.yim.server.handler.AuthHandler;
-import top.yeonon.yim.server.handler.LoginRequestHandler;
-import top.yeonon.yim.server.handler.LogoutRequestHandler;
-import top.yeonon.yim.server.handler.SingleMessageRequestHandler;
+import top.yeonon.yim.handler.Separator;
+import top.yeonon.yim.server.handler.*;
 
 
 /**
@@ -33,6 +31,8 @@ public final class YIMServer {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
+                        //处理粘包和拆包
+                        pipeline.addLast(new Separator(1024, 7, 4));
                         pipeline.addLast(new PacketDecoder());
                         pipeline.addLast(new LoginRequestHandler());
                         pipeline.addLast(new AuthHandler());
@@ -40,6 +40,7 @@ public final class YIMServer {
                         //以下的handler除了Encoder之外，对顺序没有什么要求
                         pipeline.addLast(new LogoutRequestHandler());
                         pipeline.addLast(new SingleMessageRequestHandler());
+                        pipeline.addLast(new CreateGroupRequestHandler());
 
                         pipeline.addLast(new PacketEncoder());
                     }

@@ -4,11 +4,13 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import top.yeonon.yim.client.handler.CreateGroupResponseHandler;
 import top.yeonon.yim.client.handler.LoginResponseHandler;
 import top.yeonon.yim.client.handler.LogoutResponseHandler;
 import top.yeonon.yim.client.handler.SingleMessageResponseHandler;
 import top.yeonon.yim.handler.PacketDecoder;
 import top.yeonon.yim.handler.PacketEncoder;
+import top.yeonon.yim.handler.Separator;
 import top.yeonon.yim.protocol.command.CommandExecutorManager;
 import top.yeonon.yim.protocol.command.LoginCommandExecutor;
 import top.yeonon.yim.protocol.packet.login.LoginRequestPacket;
@@ -39,12 +41,13 @@ public final class YIMClient {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
+                        pipeline.addLast(new Separator(1024, 7, 4));
                         pipeline.addLast(new PacketDecoder());
                         pipeline.addLast(new LoginResponseHandler());
-
                         //下面的handler，除了encoder之外，其他的没有顺序要求
                         pipeline.addLast(new LogoutResponseHandler());
                         pipeline.addLast(new SingleMessageResponseHandler());
+                        pipeline.addLast(new CreateGroupResponseHandler());
 
                         pipeline.addLast(new PacketEncoder());
 

@@ -13,7 +13,10 @@ public enum Command {
     LOGOUT_REQUEST((byte)3, "logout"),
     LOGOUT_RESPONSE((byte)4, "logout"),
     SINGLE_MESSAGE_REQUEST((byte)5, "sendToUser"),
-    SINGLE_MESSAGE_RESPONSE((byte)6, "sendToUser");
+    SINGLE_MESSAGE_RESPONSE((byte)6, "sendToUser"),
+    CREATE_GROUP_REQUEST((byte)7, "createGroup"),
+    CREATE_GROUP_RESPONSE((byte)8, "createGroup");
+
 
     private byte code;
     private String name;

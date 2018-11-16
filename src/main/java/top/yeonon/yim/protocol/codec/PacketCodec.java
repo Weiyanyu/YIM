@@ -2,6 +2,8 @@ package top.yeonon.yim.protocol.codec;
 
 import io.netty.buffer.ByteBuf;
 import top.yeonon.yim.protocol.command.Command;
+import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestPacket;
+import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponsePacket;
 import top.yeonon.yim.protocol.packet.login.LoginRequestPacket;
 import top.yeonon.yim.protocol.packet.login.LoginResponsePacket;
 import top.yeonon.yim.protocol.packet.Packet;
@@ -58,6 +60,8 @@ public class PacketCodec {
         packetTypeMaps.put(Command.LOGOUT_RESPONSE.getCode(), LogoutResponsePacket.class);
         packetTypeMaps.put(Command.SINGLE_MESSAGE_REQUEST.getCode(), SingleMessageRequestPacket.class);
         packetTypeMaps.put(Command.SINGLE_MESSAGE_RESPONSE.getCode(), SingleMessageResponsePacket.class);
+        packetTypeMaps.put(Command.CREATE_GROUP_REQUEST.getCode(), CreateGroupRequestPacket.class);
+        packetTypeMaps.put(Command.CREATE_GROUP_RESPONSE.getCode(), CreateGroupResponsePacket.class);
 
     }
 
