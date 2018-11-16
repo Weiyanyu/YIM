@@ -1,5 +1,6 @@
 package top.yeonon.yim.protocol.packet.createGroup;
 
+import io.netty.channel.group.ChannelGroup;
 import lombok.Data;
 import top.yeonon.yim.protocol.command.Command;
 import top.yeonon.yim.protocol.packet.Packet;
@@ -16,6 +17,7 @@ public class CreateGroupResponsePacket extends Packet {
 
     private List<String> usernameList;
     private long groupId;
+
     private boolean success;
     private String errorReason;
 

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 /**
  *
  * Session会话
@@ -18,4 +20,12 @@ public class Session {
     private long userId;
 
     private String username;
+
+    @Override
+    public String toString() {
+        return "Session{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                '}';
+    }
 }

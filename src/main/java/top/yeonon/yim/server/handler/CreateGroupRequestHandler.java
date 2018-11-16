@@ -8,6 +8,7 @@ import io.netty.channel.group.DefaultChannelGroup;
 import top.yeonon.yim.common.Session;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestPacket;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponsePacket;
+import top.yeonon.yim.util.GroupUtil;
 import top.yeonon.yim.util.SessionUtil;
 
 import java.util.ArrayList;
@@ -37,12 +38,16 @@ public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<Creat
             }
         }
 
+        long groupId = id.getAndIncrement();
         CreateGroupResponsePacket createGroupResponsePacket = new CreateGroupResponsePacket();
-        createGroupResponsePacket.setGroupId(id.getAndIncrement());
+        createGroupResponsePacket.setGroupId(groupId);
         createGroupResponsePacket.setSuccess(true);
         createGroupResponsePacket.setUsernameList(usernameList);
 
         channelGroup.writeAndFlush(createGroupResponsePacket);
+
+        //绑定group
+        GroupUtil.bindChannelGroup(groupId, channelGroup);
 
         System.out.print("群创建成功，id 为[" + createGroupResponsePacket.getGroupId() + "], ");
         System.out.println("群里面有：" + createGroupResponsePacket.getUsernameList());

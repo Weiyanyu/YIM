@@ -3,6 +3,7 @@ package top.yeonon.yim.client.handler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponsePacket;
+import top.yeonon.yim.util.GroupUtil;
 
 /**
  * @Author yeonon
@@ -12,6 +13,7 @@ public class CreateGroupResponseHandler extends SimpleChannelInboundHandler<Crea
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, CreateGroupResponsePacket createGroupResponsePacket) throws Exception {
+
         System.out.print("群创建成功，id 为[" + createGroupResponsePacket.getGroupId() + "], ");
         System.out.println("群里面有：" + createGroupResponsePacket.getUsernameList());
     }

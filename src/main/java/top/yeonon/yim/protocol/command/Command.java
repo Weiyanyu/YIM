@@ -15,8 +15,13 @@ public enum Command {
     SINGLE_MESSAGE_REQUEST((byte)5, "sendToUser"),
     SINGLE_MESSAGE_RESPONSE((byte)6, "sendToUser"),
     CREATE_GROUP_REQUEST((byte)7, "createGroup"),
-    CREATE_GROUP_RESPONSE((byte)8, "createGroup");
-
+    CREATE_GROUP_RESPONSE((byte)8, "createGroup"),
+    LIST_GROUP_MEMBER_REQUEST((byte)9, "listGroup"),
+    LIST_GROUP_MEMBER_RESPONSE((byte)10, "listGroup"),
+    JOIN_GROUP_REQUEST((byte)11, "joinGroup"),
+    JOIN_GROUP_RESPONSE((byte)12, "joinGroup"),
+    QUITE_GROUP_REQUEST((byte)13, "quiteGroup"),
+    QUITE_GROUP_RESPONSE((byte)14, "quiteGroup");
 
     private byte code;
     private String name;

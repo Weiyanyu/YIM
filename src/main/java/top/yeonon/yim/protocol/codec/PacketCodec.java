@@ -4,11 +4,17 @@ import io.netty.buffer.ByteBuf;
 import top.yeonon.yim.protocol.command.Command;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestPacket;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponsePacket;
+import top.yeonon.yim.protocol.packet.joinGroup.JoinGroupRequestPacket;
+import top.yeonon.yim.protocol.packet.joinGroup.JoinGroupResponsePacket;
+import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberRequestPacket;
+import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberResponsePacket;
 import top.yeonon.yim.protocol.packet.login.LoginRequestPacket;
 import top.yeonon.yim.protocol.packet.login.LoginResponsePacket;
 import top.yeonon.yim.protocol.packet.Packet;
 import top.yeonon.yim.protocol.packet.logout.LogoutRequestPacket;
 import top.yeonon.yim.protocol.packet.logout.LogoutResponsePacket;
+import top.yeonon.yim.protocol.packet.quiteGroup.QuiteGroupRequestPacket;
+import top.yeonon.yim.protocol.packet.quiteGroup.QuiteGroupResponsePacket;
 import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageRequestPacket;
 import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageResponsePacket;
 import top.yeonon.yim.protocol.serializer.JSONSerializer;
@@ -62,8 +68,15 @@ public class PacketCodec {
         packetTypeMaps.put(Command.SINGLE_MESSAGE_RESPONSE.getCode(), SingleMessageResponsePacket.class);
         packetTypeMaps.put(Command.CREATE_GROUP_REQUEST.getCode(), CreateGroupRequestPacket.class);
         packetTypeMaps.put(Command.CREATE_GROUP_RESPONSE.getCode(), CreateGroupResponsePacket.class);
+        packetTypeMaps.put(Command.LIST_GROUP_MEMBER_REQUEST.getCode(), ListGroupMemberRequestPacket.class);
+        packetTypeMaps.put(Command.LIST_GROUP_MEMBER_RESPONSE.getCode(), ListGroupMemberResponsePacket.class);
+        packetTypeMaps.put(Command.JOIN_GROUP_REQUEST.getCode(), JoinGroupRequestPacket.class);
+        packetTypeMaps.put(Command.JOIN_GROUP_RESPONSE.getCode(), JoinGroupResponsePacket.class);
+        packetTypeMaps.put(Command.QUITE_GROUP_REQUEST.getCode(), QuiteGroupRequestPacket.class);
+        packetTypeMaps.put(Command.QUITE_GROUP_RESPONSE.getCode(), QuiteGroupResponsePacket.class);
 
     }
+
 
     /**
      * 编码

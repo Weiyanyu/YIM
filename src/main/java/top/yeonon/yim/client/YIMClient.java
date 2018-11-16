@@ -4,10 +4,7 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import top.yeonon.yim.client.handler.CreateGroupResponseHandler;
-import top.yeonon.yim.client.handler.LoginResponseHandler;
-import top.yeonon.yim.client.handler.LogoutResponseHandler;
-import top.yeonon.yim.client.handler.SingleMessageResponseHandler;
+import top.yeonon.yim.client.handler.*;
 import top.yeonon.yim.handler.PacketDecoder;
 import top.yeonon.yim.handler.PacketEncoder;
 import top.yeonon.yim.handler.Separator;
@@ -48,6 +45,9 @@ public final class YIMClient {
                         pipeline.addLast(new LogoutResponseHandler());
                         pipeline.addLast(new SingleMessageResponseHandler());
                         pipeline.addLast(new CreateGroupResponseHandler());
+                        pipeline.addLast(new ListGroupMemberResponseHandler());
+                        pipeline.addLast(new JoinGroupResponseHandler());
+                        pipeline.addLast(new QuiteGroupResponseHandler());
 
                         pipeline.addLast(new PacketEncoder());
 
