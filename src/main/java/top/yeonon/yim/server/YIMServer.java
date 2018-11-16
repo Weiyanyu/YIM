@@ -44,6 +44,7 @@ public final class YIMServer {
                         pipeline.addLast(new ListGroupMemberRequestHandler());
                         pipeline.addLast(new JoinGroupRequestHandler());
                         pipeline.addLast(new QuiteGroupRequestHandler());
+                        pipeline.addLast(new GroupMessageRequestHandler());
 
                         pipeline.addLast(new PacketEncoder());
                     }

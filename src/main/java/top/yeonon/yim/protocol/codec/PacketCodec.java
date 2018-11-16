@@ -4,6 +4,8 @@ import io.netty.buffer.ByteBuf;
 import top.yeonon.yim.protocol.command.Command;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestPacket;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponsePacket;
+import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageRequestPacket;
+import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageResponsePacket;
 import top.yeonon.yim.protocol.packet.joinGroup.JoinGroupRequestPacket;
 import top.yeonon.yim.protocol.packet.joinGroup.JoinGroupResponsePacket;
 import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberRequestPacket;
@@ -56,7 +58,7 @@ public class PacketCodec {
     static {
         //初始化以及填充
         serializerMaps = new ConcurrentHashMap<>();
-        serializerMaps.put(SerializerAlgorithm.JSON, new JSONSerializer());
+        serializerMaps.put(SerializerAlgorithm.JSON.getCode(), new JSONSerializer());
 
         //初始化以及填充
         packetTypeMaps = new ConcurrentHashMap<>();
@@ -74,6 +76,8 @@ public class PacketCodec {
         packetTypeMaps.put(Command.JOIN_GROUP_RESPONSE.getCode(), JoinGroupResponsePacket.class);
         packetTypeMaps.put(Command.QUITE_GROUP_REQUEST.getCode(), QuiteGroupRequestPacket.class);
         packetTypeMaps.put(Command.QUITE_GROUP_RESPONSE.getCode(), QuiteGroupResponsePacket.class);
+        packetTypeMaps.put(Command.GROUP_MESSAGE_REQUEST.getCode(), GroupMessageRequestPacket.class);
+        packetTypeMaps.put(Command.GROUP_MESSAGE_RESPONSE.getCode(), GroupMessageResponsePacket.class);
 
     }
 

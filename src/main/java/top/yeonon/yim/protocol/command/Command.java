@@ -21,7 +21,9 @@ public enum Command {
     JOIN_GROUP_REQUEST((byte)11, "joinGroup"),
     JOIN_GROUP_RESPONSE((byte)12, "joinGroup"),
     QUITE_GROUP_REQUEST((byte)13, "quiteGroup"),
-    QUITE_GROUP_RESPONSE((byte)14, "quiteGroup");
+    QUITE_GROUP_RESPONSE((byte)14, "quiteGroup"),
+    GROUP_MESSAGE_REQUEST((byte)15, "sendToGroup"),
+    GROUP_MESSAGE_RESPONSE((byte)16, "sendToGroup");
 
     private byte code;
     private String name;

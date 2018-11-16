@@ -5,8 +5,24 @@ package top.yeonon.yim.protocol.serializer;
  * @Author yeonon
  * @date 2018/11/15 0015 18:02
  **/
-public interface SerializerAlgorithm {
+public enum SerializerAlgorithm {
 
+    JSON((byte)1, "JSON");
 
-    byte JSON = 1;
+    private byte code;
+    private String name;
+
+    SerializerAlgorithm(byte code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public byte getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
 }

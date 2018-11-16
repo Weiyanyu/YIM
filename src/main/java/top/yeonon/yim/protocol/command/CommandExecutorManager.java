@@ -29,6 +29,7 @@ public class CommandExecutorManager implements CommandExecutor {
         commandExecutorMaps.put(Command.LIST_GROUP_MEMBER_REQUEST.getName(), ListGroupMemberCommandExecutor.INSTANCE);
         commandExecutorMaps.put(Command.JOIN_GROUP_REQUEST.getName(), JoinGroupCommandExecutor.INSTANCE);
         commandExecutorMaps.put(Command.QUITE_GROUP_REQUEST.getName(), QuiteGroupCommandExecutor.INSTANCE);
+        commandExecutorMaps.put(Command.GROUP_MESSAGE_REQUEST.getName(), GroupMessageCommandExecutor.INSTANCE);
 
         INSTANCE = new CommandExecutorManager();
     }
