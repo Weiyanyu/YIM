@@ -5,6 +5,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageResponsePacket;
 
 /**
+ * 群组消息
  * @Author yeonon
  * @date 2018/11/16 0016 15:29
  **/

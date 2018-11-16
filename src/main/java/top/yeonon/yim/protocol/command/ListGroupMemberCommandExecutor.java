@@ -22,6 +22,7 @@ public class ListGroupMemberCommandExecutor implements CommandExecutor {
         System.out.print("输入 groupId，获取群成员列表：");
         long groupId = scanner.nextLong();
 
+        //构造请求对象
         ListGroupMemberRequestPacket listGroupMemberRequestPacket = new ListGroupMemberRequestPacket();
         listGroupMemberRequestPacket.setGroupId(groupId);
 

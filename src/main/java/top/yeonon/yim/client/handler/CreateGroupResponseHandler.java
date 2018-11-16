@@ -3,9 +3,10 @@ package top.yeonon.yim.client.handler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponsePacket;
-import top.yeonon.yim.util.GroupUtil;
+
 
 /**
+ * 创建群组
  * @Author yeonon
  * @date 2018/11/16 0016 12:39
  **/

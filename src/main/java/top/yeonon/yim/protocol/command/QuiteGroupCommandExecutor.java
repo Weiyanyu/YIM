@@ -26,6 +26,7 @@ public class QuiteGroupCommandExecutor implements CommandExecutor {
         System.out.print("【退出群组】输入 groupId：");
         long groupId = scanner.nextLong();
 
+        //构造请求对象
         QuiteGroupRequestPacket requestPacket = new QuiteGroupRequestPacket();
         requestPacket.setGroupId(groupId);
 

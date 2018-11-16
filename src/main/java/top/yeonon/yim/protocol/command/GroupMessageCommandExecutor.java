@@ -25,6 +25,7 @@ public class GroupMessageCommandExecutor implements CommandExecutor {
         long toGroupId = scanner.nextLong();
         String message = scanner.next();
 
+        //构造请求对象
         GroupMessageRequestPacket requestPacket = new GroupMessageRequestPacket();
         requestPacket.setToGroupId(toGroupId);
         requestPacket.setMessage(message);

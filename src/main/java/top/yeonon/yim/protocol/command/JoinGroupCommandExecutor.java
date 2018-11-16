@@ -26,6 +26,7 @@ public class JoinGroupCommandExecutor implements CommandExecutor {
         System.out.print("【加入群组】输入 groupId：");
         long groupId = scanner.nextLong();
 
+        //构造请求对象
         JoinGroupRequestPacket requestPacket = new JoinGroupRequestPacket();
         requestPacket.setGroupId(groupId);
 

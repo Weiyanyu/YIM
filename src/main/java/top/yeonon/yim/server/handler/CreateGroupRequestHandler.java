@@ -28,8 +28,10 @@ public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<Creat
     protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequestPacket createGroupRequestPacket) throws Exception {
         List<String> usernameList = new ArrayList<>();
 
+        //channelGroup即channel集合
         ChannelGroup channelGroup = new DefaultChannelGroup(ctx.executor());
 
+        //遍历id，将channel放入到channelGroup里
         for (long userId : createGroupRequestPacket.getUserIdSet()) {
             Channel channel = SessionUtil.getChannel(userId);
             if (channel != null && SessionUtil.hasLogin(channel)) {
@@ -38,6 +40,7 @@ public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<Creat
             }
         }
 
+        //填充响应对象
         long groupId = id.getAndIncrement();
         CreateGroupResponsePacket createGroupResponsePacket = new CreateGroupResponsePacket();
         createGroupResponsePacket.setGroupId(groupId);

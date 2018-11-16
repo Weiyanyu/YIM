@@ -7,9 +7,10 @@ import io.netty.channel.group.ChannelGroup;
 import top.yeonon.yim.protocol.packet.joinGroup.JoinGroupRequestPacket;
 import top.yeonon.yim.protocol.packet.joinGroup.JoinGroupResponsePacket;
 import top.yeonon.yim.util.GroupUtil;
-import top.yeonon.yim.util.SessionUtil;
 
 /**
+ *
+ * 加入群组
  * @Author yeonon
  * @date 2018/11/16 0016 14:22
  **/
@@ -18,10 +19,12 @@ public class JoinGroupRequestHandler extends SimpleChannelInboundHandler<JoinGro
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, JoinGroupRequestPacket joinGroupRequestPacket) throws Exception {
 
+        //将当前channel加入到群组里，即用户进群
         long groupId = joinGroupRequestPacket.getGroupId();
         ChannelGroup group = GroupUtil.getChannelGroup(groupId);
         group.add(ctx.channel());
 
+        //构造响应对象
         JoinGroupResponsePacket joinGroupResponsePacket = new JoinGroupResponsePacket();
         joinGroupResponsePacket.setGroupId(groupId);
         joinGroupResponsePacket.setSuccess(true);

@@ -26,7 +26,6 @@ public class CreateGroupCommandExecutor implements CommandExecutor {
 
     }
 
-
     @Override
     public void exec(Scanner scanner, Channel channel) {
         System.out.print("【拉人群聊】输入 userId 列表，userId 之间英文逗号隔开：");

@@ -6,6 +6,7 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import top.yeonon.yim.protocol.codec.PacketCodec;
 
 /**
+ * 解决粘包和拆包的问题
  * @Author yeonon
  * @date 2018/11/16 0016 12:55
  **/

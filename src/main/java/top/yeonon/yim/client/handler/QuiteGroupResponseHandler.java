@@ -5,6 +5,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import top.yeonon.yim.protocol.packet.quiteGroup.QuiteGroupResponsePacket;
 
 /**
+ * 退出群聊
  * @Author yeonon
  * @date 2018/11/16 0016 14:51
  **/
