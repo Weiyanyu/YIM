@@ -25,7 +25,7 @@ public final class YIMClient {
 
     private static final int MAX_RETRY = 5;
 
-    private static void init(String host, int port, int retry) {
+    private static void start(String host, int port, int retry) {
 
         Bootstrap client = new Bootstrap();
         EventLoopGroup worker = new NioEventLoopGroup();
@@ -90,7 +90,7 @@ public final class YIMClient {
 
 
     public static void main(String[] args) {
-        YIMClient.init("localhost", 8000, 5);
+        YIMClient.start("localhost", 8000, 5);
     }
 
 }

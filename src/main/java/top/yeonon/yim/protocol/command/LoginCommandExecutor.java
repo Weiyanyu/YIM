@@ -6,12 +6,15 @@ import top.yeonon.yim.protocol.packet.login.LoginRequestPacket;
 import java.util.Scanner;
 
 /**
+ *
+ * 登录命令执行器
  * @Author yeonon
  * @date 2018/11/15 0015 21:20
  **/
 public class LoginCommandExecutor implements CommandExecutor {
 
 
+    //单例
     public static final LoginCommandExecutor INSTANCE;
 
     static {

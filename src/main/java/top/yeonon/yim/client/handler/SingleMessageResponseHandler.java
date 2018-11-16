@@ -5,6 +5,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageResponsePacket;
 
 /**
+ * 单聊消息响应处理器
  * @Author yeonon
  * @date 2018/11/15 0015 21:43
  **/
@@ -12,6 +13,7 @@ public class SingleMessageResponseHandler extends SimpleChannelInboundHandler<Si
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, SingleMessageResponsePacket singleMessageResponsePacket) throws Exception {
+        //仅仅简单的打印消息即可
         String fromUsername = singleMessageResponsePacket.getFromUsername();
         long fromUserId = singleMessageResponsePacket.getFromUserId();
         String message = singleMessageResponsePacket.getMessage();

@@ -5,6 +5,8 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import top.yeonon.yim.util.SessionUtil;
 
 /**
+ *
+ * 权限认证
  * @Author yeonon
  * @date 2018/11/15 0015 20:17
  **/
@@ -12,9 +14,11 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        //如果用户没有登录，表示没有权限进行后面的请求，直接关闭连接
         if (!SessionUtil.hasLogin(ctx.channel())) {
             ctx.channel().close();
         } else {
+            //验证通过之后，可以移除该Handler了，后续不需要重复验证
             ctx.pipeline().remove(this);
             super.channelRead(ctx, msg);
         }

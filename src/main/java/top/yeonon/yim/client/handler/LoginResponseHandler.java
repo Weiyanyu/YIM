@@ -7,6 +7,9 @@ import top.yeonon.yim.protocol.packet.login.LoginResponsePacket;
 import top.yeonon.yim.util.SessionUtil;
 
 /**
+ *
+ * 登录响应处理器
+ *
  * @Author yeonon
  * @date 2018/11/15 0015 19:11
  **/
@@ -14,6 +17,7 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginResponsePacket loginResponsePacket) throws Exception {
+        //如果登录请求是成功的，就打印消息
         if (loginResponsePacket.isSuccess()) {
             String username = loginResponsePacket.getUsername();
             long userId = loginResponsePacket.getUserId();

@@ -9,6 +9,8 @@ import top.yeonon.yim.protocol.packet.Packet;
 import java.util.List;
 
 /**
+ *
+ * 解码器
  * @Author yeonon
  * @date 2018/11/15 0015 19:01
  **/

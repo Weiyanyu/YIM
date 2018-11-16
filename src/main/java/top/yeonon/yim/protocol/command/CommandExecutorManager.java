@@ -7,16 +7,21 @@ import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 命令执行器管理
  * @Author yeonon
  * @date 2018/11/15 0015 20:51
  **/
 public class CommandExecutorManager implements CommandExecutor {
 
+    //使用一个Map来保存命令名称 -> 命令执行器实例 的映射
     private static final Map<String, CommandExecutor> commandExecutorMaps;
 
+    //单例
     public static final CommandExecutorManager INSTANCE;
 
+
     static {
+        //初始化Map
         commandExecutorMaps = new ConcurrentHashMap<>();
         commandExecutorMaps.put(Command.LOGOUT_REQUEST.getName(), LogoutCommandExecutor.INSTANCE);
         commandExecutorMaps.put(Command.SINGLE_MESSAGE_REQUEST.getName(), SingleMessageCommandExecutor.INSTANCE);
@@ -39,11 +44,16 @@ public class CommandExecutorManager implements CommandExecutor {
         System.out.print("请输入指令：");
         String command = scanner.next();
 
+        //根据命令取出执行器实例
         CommandExecutor executor = commandExecutorMaps.get(command);
+
+        //如果执行器为null，表示不存在指令
         if (executor == null) {
             System.err.println("不存在该指令！");
             return;
         }
+
+        //执行对应执行器的逻辑
         executor.exec(scanner, channel);
     }
 }

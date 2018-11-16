@@ -1,6 +1,7 @@
 package top.yeonon.yim.protocol.serializer;
 
 /**
+ * 序列化器接口
  * @Author yeonon
  * @date 2018/11/15 0015 18:02
  **/

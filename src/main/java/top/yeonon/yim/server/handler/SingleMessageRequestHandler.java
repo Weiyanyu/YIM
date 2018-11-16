@@ -19,6 +19,7 @@ public class SingleMessageRequestHandler extends SimpleChannelInboundHandler<Sin
         long toUserId = singleMessageRequestPacket.getToUserId();
         Channel toUserChannel = SessionUtil.getChannel(toUserId);
 
+        //先确定对方是否在线
         if (toUserChannel == null || !SessionUtil.hasLogin(toUserChannel)) {
             System.err.println("[" + toUserId + "] 不在线，发送失败!");
             return;

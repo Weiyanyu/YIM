@@ -3,6 +3,8 @@ package top.yeonon.yim.protocol.serializer;
 import com.alibaba.fastjson.JSON;
 
 /**
+ *
+ * 基于JSON的序列化，使用的是 alibaba fastjson
  * @Author yeonon
  * @date 2018/11/15 0015 18:05
  **/

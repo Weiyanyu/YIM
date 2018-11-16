@@ -10,6 +10,7 @@ import top.yeonon.yim.util.SessionUtil;
 import java.util.Scanner;
 
 /**
+ * 登出命令执行器
  * @Author yeonon
  * @date 2018/11/15 0015 20:53
  **/
@@ -32,6 +33,7 @@ public class LogoutCommandExecutor implements CommandExecutor {
             return;
         }
         Session session = SessionUtil.getSession(channel);
+        //构造一个请求对象
         LogoutRequestPacket logoutRequestPacket = new LogoutRequestPacket();
         logoutRequestPacket.setUserId(session.getUserId());
         logoutRequestPacket.setUsername(session.getUsername());

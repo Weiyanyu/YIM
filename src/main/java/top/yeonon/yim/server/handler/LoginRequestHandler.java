@@ -10,11 +10,13 @@ import top.yeonon.yim.util.SessionUtil;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
+ * 登录请求处理器
  * @Author yeonon
  * @date 2018/11/15 0015 18:58
  **/
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
 
+    //用户生成id
     private final static AtomicLong id = new AtomicLong(0);
 
     @Override
@@ -47,6 +49,11 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
     }
 
 
+    /**
+     * 验证用户名和密码
+     * @param loginRequestPacket
+     * @return
+     */
     private boolean validate(LoginRequestPacket loginRequestPacket) {
         return true; //for-now
     }

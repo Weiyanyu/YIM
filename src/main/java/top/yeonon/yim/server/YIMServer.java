@@ -21,7 +21,7 @@ import top.yeonon.yim.server.handler.SingleMessageRequestHandler;
 public final class YIMServer {
 
 
-    private static void init(int port, boolean bindRetry) {
+    private static void start(int port, boolean bindRetry) {
         ServerBootstrap server = new ServerBootstrap();
         EventLoopGroup boss = new NioEventLoopGroup();
         EventLoopGroup worker = new NioEventLoopGroup();
@@ -66,7 +66,7 @@ public final class YIMServer {
 
     public static void main(String[] args) {
         int port = 8000;
-        YIMServer.init(port, true);
+        YIMServer.start(port, true);
     }
 
 }

@@ -7,6 +7,8 @@ import top.yeonon.yim.protocol.codec.PacketCodec;
 import top.yeonon.yim.protocol.packet.Packet;
 
 /**
+ *
+ * 编码器
  * @Author yeonon
  * @date 2018/11/15 0015 18:59
  **/

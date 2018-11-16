@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ *
+ * Session会话
  * @Author yeonon
  * @date 2018/11/15 0015 19:55
  **/

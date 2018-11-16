@@ -1,6 +1,8 @@
 package top.yeonon.yim.protocol.command;
 
 /**
+ * 命令枚举类，枚举实例代表了各个命令的代码以及名称
+ *
  * @Author yeonon
  * @date 2018/11/15 0015 18:00
  **/
