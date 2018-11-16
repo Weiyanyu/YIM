@@ -2,6 +2,7 @@ package top.yeonon.yim.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.common.Session;
 import top.yeonon.yim.protocol.packet.login.LoginResponsePacket;
 import top.yeonon.yim.util.SessionUtil;
@@ -26,9 +27,9 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
 
             //这里也要绑定Session和Channel，因为客户端的Channel和服务器Channel并不是同一个
             SessionUtil.bindSession(new Session(userId, username), ctx.channel());
-
         } else {
             System.out.println("登录失败，" + loginResponsePacket.getErrorReason());
         }
+        ctx.channel().attr(Attributes.FINISHED_TASK).set(true);
     }
 }

@@ -2,6 +2,7 @@ package top.yeonon.yim.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.protocol.packet.logout.LogoutResponsePacket;
 
 /**
@@ -20,5 +21,7 @@ public class LogoutResponseHandler extends SimpleChannelInboundHandler<LogoutRes
             //关闭客户端的eventLoop,平稳的关闭客户端
             ctx.channel().eventLoop().shutdownGracefully();
         }
+
+        ctx.channel().attr(Attributes.FINISHED_TASK).set(true);
     }
 }

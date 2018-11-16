@@ -2,6 +2,7 @@ package top.yeonon.yim.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.protocol.packet.joinGroup.JoinGroupResponsePacket;
 
 /**
@@ -18,5 +19,7 @@ public class JoinGroupResponseHandler extends SimpleChannelInboundHandler<JoinGr
         } else {
             System.err.println("加入群[" + joinGroupResponsePacket.getGroupId() + "]失败，原因为：" + joinGroupResponsePacket.getErrorReason());
         }
+
+        ctx.channel().attr(Attributes.FINISHED_TASK).set(true);
     }
 }

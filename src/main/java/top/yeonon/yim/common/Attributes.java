@@ -12,4 +12,5 @@ public interface Attributes {
 
     AttributeKey<Session> LOGIN_SESSION = AttributeKey.newInstance("login_session");
 
+    AttributeKey<Boolean> FINISHED_TASK = AttributeKey.newInstance("finish_task");
 }

@@ -1,6 +1,7 @@
 package top.yeonon.yim.protocol.command;
 
 import io.netty.channel.Channel;
+import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.common.Session;
 import top.yeonon.yim.protocol.packet.login.LoginRequestPacket;
 import top.yeonon.yim.protocol.packet.logout.LogoutRequestPacket;
@@ -28,6 +29,7 @@ public class LogoutCommandExecutor implements CommandExecutor {
 
     @Override
     public void exec(Scanner scanner, Channel channel) {
+        channel.attr(Attributes.FINISHED_TASK).set(false);
         if (!SessionUtil.hasLogin(channel)) {
             System.out.println("用户没有登录，不要尝试登出！");
             return;

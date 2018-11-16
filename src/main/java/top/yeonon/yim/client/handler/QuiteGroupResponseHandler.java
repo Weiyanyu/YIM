@@ -2,6 +2,7 @@ package top.yeonon.yim.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.protocol.packet.quiteGroup.QuiteGroupResponsePacket;
 
 /**
@@ -17,5 +18,7 @@ public class QuiteGroupResponseHandler extends SimpleChannelInboundHandler<Quite
         } else {
             System.out.println("退出群聊[" + responsePacket.getGroupId() + "]失败！");
         }
+
+        ctx.channel().attr(Attributes.FINISHED_TASK).set(true);
     }
 }

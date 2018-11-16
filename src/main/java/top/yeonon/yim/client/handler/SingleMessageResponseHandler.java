@@ -2,6 +2,7 @@ package top.yeonon.yim.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageResponsePacket;
 
 /**
@@ -18,5 +19,7 @@ public class SingleMessageResponseHandler extends SimpleChannelInboundHandler<Si
         long fromUserId = singleMessageResponsePacket.getFromUserId();
         String message = singleMessageResponsePacket.getMessage();
         System.out.println(fromUserId + ":" + fromUsername + " -> " + message);
+
+        ctx.channel().attr(Attributes.FINISHED_TASK).set(true);
     }
 }

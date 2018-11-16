@@ -1,6 +1,7 @@
 package top.yeonon.yim.protocol.command;
 
 import io.netty.channel.Channel;
+import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.protocol.packet.joinGroup.JoinGroupRequestPacket;
 
 import java.util.Scanner;
@@ -23,6 +24,7 @@ public class JoinGroupCommandExecutor implements CommandExecutor {
 
     @Override
     public void exec(Scanner scanner, Channel channel) {
+        channel.attr(Attributes.FINISHED_TASK).set(false);
         System.out.print("【加入群组】输入 groupId：");
         long groupId = scanner.nextLong();
 

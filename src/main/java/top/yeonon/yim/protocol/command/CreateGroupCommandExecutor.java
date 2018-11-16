@@ -1,6 +1,7 @@
 package top.yeonon.yim.protocol.command;
 
 import io.netty.channel.Channel;
+import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestPacket;
 import top.yeonon.yim.util.SessionUtil;
 
@@ -28,6 +29,8 @@ public class CreateGroupCommandExecutor implements CommandExecutor {
 
     @Override
     public void exec(Scanner scanner, Channel channel) {
+        channel.attr(Attributes.FINISHED_TASK).set(false);
+
         System.out.print("【拉人群聊】输入 userId 列表，userId 之间英文逗号隔开：");
         String[] ids = scanner.next().split(Separator);
         Set<Long> userIdSet = new HashSet<>();

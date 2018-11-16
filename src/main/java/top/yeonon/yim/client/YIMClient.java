@@ -4,7 +4,9 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.util.AttributeKey;
 import top.yeonon.yim.client.handler.*;
+import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.handler.PacketDecoder;
 import top.yeonon.yim.handler.PacketEncoder;
 import top.yeonon.yim.handler.Separator;
@@ -34,6 +36,7 @@ public final class YIMClient {
                 .option(ChannelOption.SO_KEEPALIVE, true)
                 .option(ChannelOption.TCP_NODELAY, true)
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+                .attr(Attributes.FINISHED_TASK, true)
                 .handler(new ChannelInitializer<Channel>() {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
@@ -81,10 +84,12 @@ public final class YIMClient {
         new Thread(() -> {
             Scanner scanner = new Scanner(System.in);
             while (!Thread.currentThread().isInterrupted()) {
-                if (!SessionUtil.hasLogin(channel)) {
-                    LoginCommandExecutor.INSTANCE.exec(scanner, channel);
-                } else {
-                    CommandExecutorManager.INSTANCE.exec(scanner, channel);
+                if (channel.attr(Attributes.FINISHED_TASK).get()) {
+                    if (!SessionUtil.hasLogin(channel)) {
+                        LoginCommandExecutor.INSTANCE.exec(scanner, channel);
+                    } else {
+                        CommandExecutorManager.INSTANCE.exec(scanner, channel);
+                    }
                 }
             }
 

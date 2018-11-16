@@ -2,6 +2,7 @@ package top.yeonon.yim.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageResponsePacket;
 
 /**
@@ -22,6 +23,6 @@ public class GroupMessageResponseHandler extends SimpleChannelInboundHandler<Gro
             System.err.println("发送失败! 原因是: " + responsePacket.getErrorReason());
         }
 
-
+        ctx.channel().attr(Attributes.FINISHED_TASK).set(true);
     }
 }

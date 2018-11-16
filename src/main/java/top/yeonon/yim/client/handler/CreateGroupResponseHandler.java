@@ -2,6 +2,7 @@ package top.yeonon.yim.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponsePacket;
 
 
@@ -17,5 +18,7 @@ public class CreateGroupResponseHandler extends SimpleChannelInboundHandler<Crea
 
         System.out.print("群创建成功，id 为[" + createGroupResponsePacket.getGroupId() + "], ");
         System.out.println("群里面有：" + createGroupResponsePacket.getUsernameList());
+
+        ctx.channel().attr(Attributes.FINISHED_TASK).set(true);
     }
 }

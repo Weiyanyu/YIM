@@ -1,6 +1,7 @@
 package top.yeonon.yim.protocol.command;
 
 import io.netty.channel.Channel;
+import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageRequestPacket;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageResponsePacket;
 
@@ -22,6 +23,7 @@ public class GroupMessageCommandExecutor implements CommandExecutor {
 
     @Override
     public void exec(Scanner scanner, Channel channel) {
+        channel.attr(Attributes.FINISHED_TASK).set(false);
         long toGroupId = scanner.nextLong();
         String message = scanner.next();
 
