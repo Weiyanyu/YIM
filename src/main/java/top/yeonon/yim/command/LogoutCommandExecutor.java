@@ -1,11 +1,8 @@
-package top.yeonon.yim.protocol.command;
+package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
-import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.common.Session;
-import top.yeonon.yim.protocol.packet.login.LoginRequestPacket;
 import top.yeonon.yim.protocol.packet.logout.LogoutRequestPacket;
-import top.yeonon.yim.server.handler.LoginRequestHandler;
 import top.yeonon.yim.util.SessionUtil;
 
 import java.util.Scanner;

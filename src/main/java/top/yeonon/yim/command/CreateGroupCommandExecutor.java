@@ -1,7 +1,6 @@
-package top.yeonon.yim.protocol.command;
+package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
-import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestPacket;
 import top.yeonon.yim.util.SessionUtil;
 

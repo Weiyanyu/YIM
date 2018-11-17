@@ -1,4 +1,4 @@
-package top.yeonon.yim.protocol.command;
+package top.yeonon.yim.command;
 
 
 import io.netty.channel.Channel;

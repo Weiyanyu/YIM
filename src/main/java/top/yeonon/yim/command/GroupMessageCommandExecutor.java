@@ -1,9 +1,7 @@
-package top.yeonon.yim.protocol.command;
+package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
-import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageRequestPacket;
-import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageResponsePacket;
 
 import java.util.Scanner;
 

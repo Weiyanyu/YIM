@@ -1,7 +1,7 @@
 package top.yeonon.yim.protocol.codec;
 
 import io.netty.buffer.ByteBuf;
-import top.yeonon.yim.protocol.command.Command;
+import top.yeonon.yim.command.Command;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestPacket;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponsePacket;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageRequestPacket;

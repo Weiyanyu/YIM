@@ -3,7 +3,7 @@ package top.yeonon.yim.protocol.packet.singleMessage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import top.yeonon.yim.protocol.command.Command;
+import top.yeonon.yim.command.Command;
 import top.yeonon.yim.protocol.packet.Packet;
 
 /**

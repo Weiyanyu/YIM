@@ -1,8 +1,6 @@
-package top.yeonon.yim.protocol.command;
+package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.util.AttributeKey;
 import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.protocol.packet.login.LoginRequestPacket;
 

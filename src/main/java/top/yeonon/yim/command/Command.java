@@ -1,4 +1,4 @@
-package top.yeonon.yim.protocol.command;
+package top.yeonon.yim.command;
 
 /**
  * 命令枚举类，枚举实例代表了各个命令的代码以及名称

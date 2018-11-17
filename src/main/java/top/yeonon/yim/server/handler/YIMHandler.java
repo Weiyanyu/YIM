@@ -3,7 +3,7 @@ package top.yeonon.yim.server.handler;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import top.yeonon.yim.protocol.command.Command;
+import top.yeonon.yim.command.Command;
 import top.yeonon.yim.protocol.packet.Packet;
 
 import java.util.Map;

@@ -1,7 +1,7 @@
 package top.yeonon.yim.protocol.packet.listGroup;
 
 import lombok.Data;
-import top.yeonon.yim.protocol.command.Command;
+import top.yeonon.yim.command.Command;
 import top.yeonon.yim.protocol.packet.Packet;
 
 /**
