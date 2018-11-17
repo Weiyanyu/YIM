@@ -17,7 +17,7 @@ public final class DataBaseUtil {
     private static SqlSessionFactory SQL_SESSION_FACTORY = null;
 
     static {
-        String resource = "mappers/mybatis-config.xml";
+        String resource = "mybatis-config.xml";
         InputStream inputStream = null;
         try {
             inputStream = Resources.getResourceAsStream(resource);

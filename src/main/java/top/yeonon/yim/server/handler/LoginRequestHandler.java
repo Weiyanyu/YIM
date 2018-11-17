@@ -65,14 +65,15 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
      * @return
      */
     private boolean validate(LoginRequestPacket loginRequestPacket) {
-        SqlSession sqlSession = DataBaseUtil.getSqlSession();
-        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        User user = userMapper.selectUserByUsernameAndPassword(loginRequestPacket.getUsername(),
-                                                    loginRequestPacket.getPassword());
-        if (user == null) {
-            return false;
+        //sqlSession最好是线程私有的，而且用完之后要关闭，避免资源泄露
+        try (SqlSession sqlSession = DataBaseUtil.getSqlSession()){
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            User user = userMapper.selectUserByUsernameAndPassword(loginRequestPacket.getUsername(),
+                    loginRequestPacket.getPassword());
+            if (user == null) {
+                return false;
+            }
+            return true;
         }
-        return true;
-
     }
 }
