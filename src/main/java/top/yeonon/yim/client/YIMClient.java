@@ -4,6 +4,7 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import org.apache.log4j.Logger;
 import top.yeonon.yim.client.handler.*;
 import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.handler.PacketDecoder;
@@ -22,6 +23,8 @@ import java.util.concurrent.TimeUnit;
  * @date 2018/11/15 0015 17:24
  **/
 public final class YIMClient {
+
+    private static final Logger log = Logger.getLogger(YIMClient.class);
 
     private static final int MAX_RETRY = 5;
 
@@ -68,15 +71,15 @@ public final class YIMClient {
     private static void connect(Bootstrap client, String host, int port, int retry) {
         client.connect(host, port).addListener(future -> {
             if (future.isSuccess()) {
-                System.out.println("客户端连接成功！");
+                log.info("客户端连接成功！");
                 Channel channel = ((ChannelFuture) future).channel();
                 startCommandLine(channel);
             } else if (retry == 0) {
-                System.out.println("连接失败！放弃连接！");
+                log.info("连接失败！放弃连接！");
             } else {
                 int remain = (retry - MAX_RETRY) + 1;
                 int delay = 1 << remain;
-                System.out.println("客户端连接失败，第" + remain + "次重试");
+                log.info("客户端连接失败，第" + remain + "次重试");
                 client.config().group().schedule(() -> connect(client, host, port, retry - 1),
                         delay, TimeUnit.SECONDS);
             }

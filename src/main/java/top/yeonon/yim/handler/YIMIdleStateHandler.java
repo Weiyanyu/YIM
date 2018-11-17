@@ -3,14 +3,17 @@ package top.yeonon.yim.handler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
+import org.apache.log4j.Logger;
 
 import java.util.concurrent.TimeUnit;
+
 
 /**
  * @Author yeonon
  * @date 2018/11/17 0017 11:50
  **/
 public class YIMIdleStateHandler extends IdleStateHandler {
+
 
     private static final int READER_IDLE_TIME = 60;
 

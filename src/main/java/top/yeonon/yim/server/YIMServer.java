@@ -6,6 +6,7 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.apache.log4j.Logger;
 import top.yeonon.yim.client.handler.HeartBeatTimerHandler;
 import top.yeonon.yim.handler.*;
 import top.yeonon.yim.server.handler.*;
@@ -17,6 +18,7 @@ import top.yeonon.yim.server.handler.*;
  **/
 public final class YIMServer {
 
+    private static final Logger log = Logger.getLogger(YIMServer.class);
 
     private static void start(int port, boolean bindRetry) {
         ServerBootstrap server = new ServerBootstrap();
@@ -53,13 +55,13 @@ public final class YIMServer {
     private static void bind(ServerBootstrap server, int port, boolean bindRetry) {
         server.bind(port).addListener((future -> {
             if (future.isSuccess()) {
-                System.out.println("绑定端口成功！服务端正在监听端口：" + port);
+                log.info("绑定端口成功！服务端正在监听端口：" + port);
             } else {
                 if (bindRetry) {
-                    System.out.println("绑定端口失败！重试其他端口");
+                    log.info("绑定端口失败！重试其他端口");
                     bind(server, port+1, bindRetry);
                 } else {
-                    System.out.println("绑定端口失败！服务端启动失败！");
+                    log.info("绑定端口失败！服务端启动失败！");
                 }
             }
         }));
