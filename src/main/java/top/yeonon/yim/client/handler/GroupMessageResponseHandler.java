@@ -23,6 +23,5 @@ public class GroupMessageResponseHandler extends SimpleChannelInboundHandler<Gro
             System.err.println("发送失败! 原因是: " + responsePacket.getErrorReason());
         }
 
-        ctx.channel().attr(Attributes.FINISHED_TASK).set(true);
     }
 }

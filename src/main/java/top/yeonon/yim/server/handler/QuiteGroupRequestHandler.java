@@ -1,6 +1,7 @@
 package top.yeonon.yim.server.handler;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -13,7 +14,13 @@ import top.yeonon.yim.util.GroupUtil;
  * @Author yeonon
  * @date 2018/11/16 0016 14:49
  **/
+@ChannelHandler.Sharable
 public class QuiteGroupRequestHandler extends SimpleChannelInboundHandler<QuiteGroupRequestPacket> {
+
+
+    public static final QuiteGroupRequestHandler INSTANCE = new QuiteGroupRequestHandler();
+
+    private QuiteGroupRequestHandler() {}
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, QuiteGroupRequestPacket requestPacket) throws Exception {

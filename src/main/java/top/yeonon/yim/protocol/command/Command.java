@@ -23,7 +23,9 @@ public enum Command {
     QUITE_GROUP_REQUEST((byte)13, "quiteGroup"),
     QUITE_GROUP_RESPONSE((byte)14, "quiteGroup"),
     GROUP_MESSAGE_REQUEST((byte)15, "sendToGroup"),
-    GROUP_MESSAGE_RESPONSE((byte)16, "sendToGroup");
+    GROUP_MESSAGE_RESPONSE((byte)16, "sendToGroup"),
+    HEART_BEAT_REQUEST((byte)17, "heartBeat"),
+    HEART_BEAT_RESPONSE((byte)18, "heartBeat");
 
     private byte code;
     private String name;

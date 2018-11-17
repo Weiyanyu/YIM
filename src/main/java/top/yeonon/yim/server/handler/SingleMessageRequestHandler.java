@@ -1,6 +1,7 @@
 package top.yeonon.yim.server.handler;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import top.yeonon.yim.common.Session;
@@ -12,7 +13,12 @@ import top.yeonon.yim.util.SessionUtil;
  * @Author yeonon
  * @date 2018/11/15 0015 21:33
  **/
+@ChannelHandler.Sharable
 public class SingleMessageRequestHandler extends SimpleChannelInboundHandler<SingleMessageRequestPacket> {
+
+    public static final SingleMessageRequestHandler INSTANCE = new SingleMessageRequestHandler();
+
+    private SingleMessageRequestHandler() {}
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, SingleMessageRequestPacket singleMessageRequestPacket) throws Exception {

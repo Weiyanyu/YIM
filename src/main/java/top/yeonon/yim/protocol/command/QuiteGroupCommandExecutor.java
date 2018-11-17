@@ -24,7 +24,6 @@ public class QuiteGroupCommandExecutor implements CommandExecutor {
 
     @Override
     public void exec(Scanner scanner, Channel channel) {
-        channel.attr(Attributes.FINISHED_TASK).set(false);
         System.out.print("【退出群组】输入 groupId：");
         long groupId = scanner.nextLong();
 

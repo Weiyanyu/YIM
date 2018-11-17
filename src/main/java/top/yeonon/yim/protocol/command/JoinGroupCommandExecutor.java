@@ -24,7 +24,6 @@ public class JoinGroupCommandExecutor implements CommandExecutor {
 
     @Override
     public void exec(Scanner scanner, Channel channel) {
-        channel.attr(Attributes.FINISHED_TASK).set(false);
         System.out.print("【加入群组】输入 groupId：");
         long groupId = scanner.nextLong();
 

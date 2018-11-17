@@ -31,23 +31,11 @@ public class LoginCommandExecutor implements CommandExecutor {
     @Override
     public void exec(Scanner scanner, Channel channel) {
         channel.attr(Attributes.FINISHED_TASK).set(false);
-
         System.out.print("请输入用户名：");
         String username = scanner.nextLine();
         String password = "pwd";
         LoginRequestPacket loginRequestPacket = new LoginRequestPacket(username, password);
 
         channel.writeAndFlush(loginRequestPacket);
-
-        //waitFor();
-    }
-
-    //TODO 后面重构的时候将其做成异步的
-    private static void waitFor() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }

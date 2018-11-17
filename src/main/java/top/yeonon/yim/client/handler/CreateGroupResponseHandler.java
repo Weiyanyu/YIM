@@ -19,6 +19,5 @@ public class CreateGroupResponseHandler extends SimpleChannelInboundHandler<Crea
         System.out.print("群创建成功，id 为[" + createGroupResponsePacket.getGroupId() + "], ");
         System.out.println("群里面有：" + createGroupResponsePacket.getUsernameList());
 
-        ctx.channel().attr(Attributes.FINISHED_TASK).set(true);
     }
 }

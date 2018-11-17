@@ -4,12 +4,14 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.AttributeKey;
 import top.yeonon.yim.client.handler.*;
 import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.handler.PacketDecoder;
 import top.yeonon.yim.handler.PacketEncoder;
 import top.yeonon.yim.handler.Separator;
+import top.yeonon.yim.handler.YIMIdleStateHandler;
 import top.yeonon.yim.protocol.command.CommandExecutorManager;
 import top.yeonon.yim.protocol.command.LoginCommandExecutor;
 import top.yeonon.yim.protocol.packet.login.LoginRequestPacket;
@@ -41,6 +43,8 @@ public final class YIMClient {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
+                        pipeline.addLast(new YIMIdleStateHandler());
+
                         pipeline.addLast(new Separator(1024, 7, 4));
                         pipeline.addLast(new PacketDecoder());
                         pipeline.addLast(new LoginResponseHandler());
@@ -54,6 +58,8 @@ public final class YIMClient {
                         pipeline.addLast(new GroupMessageResponseHandler());
 
                         pipeline.addLast(new PacketEncoder());
+
+                        pipeline.addLast(new HeartBeatTimerHandler());
 
                     }
                 });

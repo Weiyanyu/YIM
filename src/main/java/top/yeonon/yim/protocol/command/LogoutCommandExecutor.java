@@ -29,7 +29,6 @@ public class LogoutCommandExecutor implements CommandExecutor {
 
     @Override
     public void exec(Scanner scanner, Channel channel) {
-        channel.attr(Attributes.FINISHED_TASK).set(false);
         if (!SessionUtil.hasLogin(channel)) {
             System.out.println("用户没有登录，不要尝试登出！");
             return;

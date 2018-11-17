@@ -1,6 +1,7 @@
 package top.yeonon.yim.server.handler;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -19,8 +20,12 @@ import java.util.concurrent.atomic.AtomicLong;
  * @Author yeonon
  * @date 2018/11/16 0016 12:33
  **/
+@ChannelHandler.Sharable
 public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequestPacket> {
 
+    public static final CreateGroupRequestHandler INSTANCE = new CreateGroupRequestHandler();
+
+    private CreateGroupRequestHandler() {}
 
     private final static AtomicLong id = new AtomicLong(0);
 

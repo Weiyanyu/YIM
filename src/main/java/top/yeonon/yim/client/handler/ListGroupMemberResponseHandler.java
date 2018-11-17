@@ -20,6 +20,5 @@ public class ListGroupMemberResponseHandler extends SimpleChannelInboundHandler<
             System.out.println(listGroupMemberResponsePacket.getErrorReason());
         }
 
-        ctx.channel().attr(Attributes.FINISHED_TASK).set(true);
     }
 }

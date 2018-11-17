@@ -1,5 +1,6 @@
 package top.yeonon.yim.server.handler;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import top.yeonon.yim.common.Session;
@@ -14,7 +15,12 @@ import java.util.concurrent.atomic.AtomicLong;
  * @Author yeonon
  * @date 2018/11/15 0015 18:58
  **/
+@ChannelHandler.Sharable
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
+
+    public static final LoginRequestHandler INSTANCE = new LoginRequestHandler();
+
+    private LoginRequestHandler() {}
 
     //用户生成id
     private final static AtomicLong id = new AtomicLong(0);

@@ -23,7 +23,6 @@ public class GroupMessageCommandExecutor implements CommandExecutor {
 
     @Override
     public void exec(Scanner scanner, Channel channel) {
-        channel.attr(Attributes.FINISHED_TASK).set(false);
         long toGroupId = scanner.nextLong();
         String message = scanner.next();
 

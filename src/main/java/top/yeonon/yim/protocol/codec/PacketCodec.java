@@ -6,6 +6,8 @@ import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestPacket;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponsePacket;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageRequestPacket;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageResponsePacket;
+import top.yeonon.yim.protocol.packet.heartBeat.HeartBeatRequestPacket;
+import top.yeonon.yim.protocol.packet.heartBeat.HeartBeatResponsePacket;
 import top.yeonon.yim.protocol.packet.joinGroup.JoinGroupRequestPacket;
 import top.yeonon.yim.protocol.packet.joinGroup.JoinGroupResponsePacket;
 import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberRequestPacket;
@@ -78,6 +80,8 @@ public class PacketCodec {
         packetTypeMaps.put(Command.QUITE_GROUP_RESPONSE.getCode(), QuiteGroupResponsePacket.class);
         packetTypeMaps.put(Command.GROUP_MESSAGE_REQUEST.getCode(), GroupMessageRequestPacket.class);
         packetTypeMaps.put(Command.GROUP_MESSAGE_RESPONSE.getCode(), GroupMessageResponsePacket.class);
+        packetTypeMaps.put(Command.HEART_BEAT_REQUEST.getCode(), HeartBeatRequestPacket.class);
+        packetTypeMaps.put(Command.HEART_BEAT_RESPONSE.getCode(), HeartBeatResponsePacket.class);
 
     }
 

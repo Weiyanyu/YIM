@@ -1,5 +1,6 @@
 package top.yeonon.yim.server.handler;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import top.yeonon.yim.util.SessionUtil;
@@ -10,7 +11,12 @@ import top.yeonon.yim.util.SessionUtil;
  * @Author yeonon
  * @date 2018/11/15 0015 20:17
  **/
+@ChannelHandler.Sharable
 public class AuthHandler extends ChannelInboundHandlerAdapter {
+
+    public static final AuthHandler INSTANCE = new AuthHandler();
+
+    private AuthHandler() {}
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

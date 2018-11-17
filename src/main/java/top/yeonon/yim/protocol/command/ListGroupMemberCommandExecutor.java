@@ -20,7 +20,6 @@ public class ListGroupMemberCommandExecutor implements CommandExecutor {
 
     @Override
     public void exec(Scanner scanner, Channel channel) {
-        channel.attr(Attributes.FINISHED_TASK).set(false);
         System.out.print("输入 groupId，获取群成员列表：");
         long groupId = scanner.nextLong();
 

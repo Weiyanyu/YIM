@@ -21,7 +21,6 @@ public class SingleMessageCommandExecutor implements CommandExecutor {
 
     @Override
     public void exec(Scanner scanner, Channel channel) {
-        channel.attr(Attributes.FINISHED_TASK).set(false);
         long toUserId = scanner.nextLong();
         String message = scanner.next();
 

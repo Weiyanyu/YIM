@@ -6,9 +6,8 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import top.yeonon.yim.handler.PacketDecoder;
-import top.yeonon.yim.handler.PacketEncoder;
-import top.yeonon.yim.handler.Separator;
+import top.yeonon.yim.client.handler.HeartBeatTimerHandler;
+import top.yeonon.yim.handler.*;
 import top.yeonon.yim.server.handler.*;
 
 
@@ -31,22 +30,19 @@ public final class YIMServer {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
+                        pipeline.addLast(new YIMIdleStateHandler());
+
                         //处理粘包和拆包
                         pipeline.addLast(new Separator(1024, 7, 4));
-                        pipeline.addLast(new PacketDecoder());
-                        pipeline.addLast(new LoginRequestHandler());
-                        pipeline.addLast(new AuthHandler());
+                        pipeline.addLast(PacketCodecHandler.INSTANCE);
+                        pipeline.addLast(LoginRequestHandler.INSTANCE);
+                        pipeline.addLast(HeartBeatResponseHandler.INSTANCE);
+                        pipeline.addLast(AuthHandler.INSTANCE);
 
-                        //以下的handler除了Encoder之外，对顺序没有什么要求
-                        pipeline.addLast(new LogoutRequestHandler());
-                        pipeline.addLast(new SingleMessageRequestHandler());
-                        pipeline.addLast(new CreateGroupRequestHandler());
-                        pipeline.addLast(new ListGroupMemberRequestHandler());
-                        pipeline.addLast(new JoinGroupRequestHandler());
-                        pipeline.addLast(new QuiteGroupRequestHandler());
-                        pipeline.addLast(new GroupMessageRequestHandler());
+                        //缩短了传播距离
+                        //因为其实每次请求只会被一个Handler处理，这样做可以缩短数据的传播路径
+                        pipeline.addLast(YIMHandler.INSTANCE);
 
-                        pipeline.addLast(new PacketEncoder());
                     }
                 });
 

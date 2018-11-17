@@ -19,6 +19,5 @@ public class QuiteGroupResponseHandler extends SimpleChannelInboundHandler<Quite
             System.out.println("退出群聊[" + responsePacket.getGroupId() + "]失败！");
         }
 
-        ctx.channel().attr(Attributes.FINISHED_TASK).set(true);
     }
 }

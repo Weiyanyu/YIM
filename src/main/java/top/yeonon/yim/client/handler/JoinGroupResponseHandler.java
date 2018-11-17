@@ -20,6 +20,5 @@ public class JoinGroupResponseHandler extends SimpleChannelInboundHandler<JoinGr
             System.err.println("加入群[" + joinGroupResponsePacket.getGroupId() + "]失败，原因为：" + joinGroupResponsePacket.getErrorReason());
         }
 
-        ctx.channel().attr(Attributes.FINISHED_TASK).set(true);
     }
 }

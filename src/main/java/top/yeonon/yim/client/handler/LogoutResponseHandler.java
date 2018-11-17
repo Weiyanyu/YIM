@@ -22,6 +22,5 @@ public class LogoutResponseHandler extends SimpleChannelInboundHandler<LogoutRes
             ctx.channel().eventLoop().shutdownGracefully();
         }
 
-        ctx.channel().attr(Attributes.FINISHED_TASK).set(true);
     }
 }

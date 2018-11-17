@@ -19,7 +19,5 @@ public class SingleMessageResponseHandler extends SimpleChannelInboundHandler<Si
         long fromUserId = singleMessageResponsePacket.getFromUserId();
         String message = singleMessageResponsePacket.getMessage();
         System.out.println(fromUserId + ":" + fromUsername + " -> " + message);
-
-        ctx.channel().attr(Attributes.FINISHED_TASK).set(true);
     }
 }

@@ -1,5 +1,7 @@
 package top.yeonon.yim.server.handler;
 
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -14,7 +16,14 @@ import top.yeonon.yim.util.SessionUtil;
  * @Author yeonon
  * @date 2018/11/16 0016 15:26
  **/
+@ChannelHandler.Sharable
 public class GroupMessageRequestHandler extends SimpleChannelInboundHandler<GroupMessageRequestPacket> {
+
+    public static final GroupMessageRequestHandler INSTANCE = new GroupMessageRequestHandler();
+
+    private GroupMessageRequestHandler() {}
+
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, GroupMessageRequestPacket requestPacket) throws Exception {
         long groupId = requestPacket.getToGroupId();
@@ -39,6 +48,11 @@ public class GroupMessageRequestHandler extends SimpleChannelInboundHandler<Grou
         responsePacket.setMessage(requestPacket.getMessage());
 
         //将消息广播给群组里的成员
-        group.writeAndFlush(responsePacket);
+        for (Channel channel : group) {
+            if (channel.equals(ctx.channel())) {
+                continue;
+            }
+            channel.writeAndFlush(responsePacket);
+        }
     }
 }

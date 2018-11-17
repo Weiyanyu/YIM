@@ -1,5 +1,6 @@
 package top.yeonon.yim.server.handler;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import top.yeonon.yim.protocol.packet.logout.LogoutRequestPacket;
@@ -12,7 +13,12 @@ import top.yeonon.yim.util.SessionUtil;
  * @Author yeonon
  * @date 2018/11/15 0015 20:37
  **/
+@ChannelHandler.Sharable
 public class LogoutRequestHandler extends SimpleChannelInboundHandler<LogoutRequestPacket> {
+
+    public static final LogoutRequestHandler INSTANCE = new LogoutRequestHandler();
+
+    private LogoutRequestHandler() {}
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LogoutRequestPacket logoutRequestPacket) throws Exception {
