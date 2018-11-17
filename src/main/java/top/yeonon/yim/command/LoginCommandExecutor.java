@@ -29,9 +29,10 @@ public class LoginCommandExecutor implements CommandExecutor {
     @Override
     public void exec(Scanner scanner, Channel channel) {
         channel.attr(Attributes.FINISHED_TASK).set(false);
-        System.out.print("请输入用户名：");
+        System.out.print("请输入用户名： ");
         String username = scanner.nextLine();
-        String password = "pwd";
+        System.out.print("请输入密码： ");
+        String password = scanner.nextLine();
         LoginRequestPacket loginRequestPacket = new LoginRequestPacket(username, password);
 
         channel.writeAndFlush(loginRequestPacket);

@@ -24,8 +24,11 @@ import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageResponsePacket;
 import top.yeonon.yim.protocol.serializer.JSONSerializer;
 import top.yeonon.yim.protocol.serializer.Serializer;
 import top.yeonon.yim.protocol.serializer.SerializerAlgorithm;
+import top.yeonon.yim.util.ClassUtil;
 
+import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -45,6 +48,8 @@ public class PacketCodec {
 
     //魔数
     public static final int MAGIC_NUMBER = 0x15010622;
+
+    private static final String PACKET_CLASS_PATH = "top.yeonon.yim.protocol.packet";
 
     //序列化器的Map
     private static final Map<Byte, Serializer> serializerMaps;
@@ -83,6 +88,7 @@ public class PacketCodec {
         packetTypeMaps.put(Command.HEART_BEAT_REQUEST.getCode(), HeartBeatRequestPacket.class);
         packetTypeMaps.put(Command.HEART_BEAT_RESPONSE.getCode(), HeartBeatResponsePacket.class);
 
+        //TODO 对于这些初始化的过程，目前想到的是使用反射来自动添加，但那样效率可能会降低很多，而提高的仅仅是代码可读性
     }
 
 

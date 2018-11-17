@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  **/
 public class HeartBeatTimerHandler extends ChannelInboundHandlerAdapter {
 
-    private static final int TIME_INTERVAL = 5;
+    private static final int TIME_INTERVAL = 30;
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

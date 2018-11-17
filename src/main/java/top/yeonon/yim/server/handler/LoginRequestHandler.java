@@ -3,9 +3,13 @@ package top.yeonon.yim.server.handler;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.apache.ibatis.session.SqlSession;
 import top.yeonon.yim.common.Session;
+import top.yeonon.yim.mapper.UserMapper;
+import top.yeonon.yim.pojo.User;
 import top.yeonon.yim.protocol.packet.login.LoginRequestPacket;
 import top.yeonon.yim.protocol.packet.login.LoginResponsePacket;
+import top.yeonon.yim.util.DataBaseUtil;
 import top.yeonon.yim.util.SessionUtil;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -61,6 +65,14 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
      * @return
      */
     private boolean validate(LoginRequestPacket loginRequestPacket) {
-        return true; //for-now
+        SqlSession sqlSession = DataBaseUtil.getSqlSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        User user = userMapper.selectUserByUsernameAndPassword(loginRequestPacket.getUsername(),
+                                                    loginRequestPacket.getPassword());
+        if (user == null) {
+            return false;
+        }
+        return true;
+
     }
 }

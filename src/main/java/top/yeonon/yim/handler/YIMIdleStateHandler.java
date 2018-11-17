@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  **/
 public class YIMIdleStateHandler extends IdleStateHandler {
 
-    private static final int READER_IDLE_TIME = 15;
+    private static final int READER_IDLE_TIME = 60;
 
     public YIMIdleStateHandler() {
         super(READER_IDLE_TIME, 0, 0, TimeUnit.SECONDS);
