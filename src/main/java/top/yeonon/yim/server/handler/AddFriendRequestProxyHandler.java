@@ -12,6 +12,7 @@ import top.yeonon.yim.util.DataBaseUtil;
 import top.yeonon.yim.util.SessionUtil;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Author yeonon
@@ -32,6 +33,7 @@ public class AddFriendRequestProxyHandler extends SimpleChannelInboundHandler<Ad
         long fromUserId = requestPacket.getFromUserId();
         Channel toChannel = SessionUtil.getChannel(toUserId);
 
+        //如果用户不在线
         if (toChannel == null || !toChannel.isActive()) {
             AddFriendResponsePacket responsePacket = new AddFriendResponsePacket();
             responsePacket.setSuccess(false);
@@ -40,6 +42,7 @@ public class AddFriendRequestProxyHandler extends SimpleChannelInboundHandler<Ad
             return;
         }
 
+        //如果已经是好友关系
         if (checkFriendList(fromUserId, toUserId)) {
             AddFriendResponsePacket responsePacket = new AddFriendResponsePacket();
             responsePacket.setSuccess(false);
@@ -52,10 +55,16 @@ public class AddFriendRequestProxyHandler extends SimpleChannelInboundHandler<Ad
         toChannel.writeAndFlush(requestPacket);
     }
 
+    /**
+     * 检查两者是否已经是好友关系了
+     * @param fromUserId
+     * @param toUserId
+     * @return
+     */
     private boolean checkFriendList(long fromUserId, long toUserId) {
         try (SqlSession sqlSession = DataBaseUtil.getSqlSession()) {
             FriendListMapper friendListMapper = sqlSession.getMapper(FriendListMapper.class);
-            List<Long> friendIds = friendListMapper.selectFriendIdsByUserId(fromUserId);
+            Set<Long> friendIds = friendListMapper.selectFriendIdsByUserId(fromUserId);
             return friendIds.contains(toUserId);
         }
     }

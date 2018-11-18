@@ -4,10 +4,17 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.apache.ibatis.session.SqlSession;
 import top.yeonon.yim.common.Session;
+import top.yeonon.yim.mapper.FriendListMapper;
+import top.yeonon.yim.pojo.FriendList;
 import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageRequestPacket;
 import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageResponsePacket;
+import top.yeonon.yim.util.DataBaseUtil;
 import top.yeonon.yim.util.SessionUtil;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * @Author yeonon
@@ -31,6 +38,7 @@ public class SingleMessageRequestHandler extends SimpleChannelInboundHandler<Sin
             return;
         }
 
+
         //确定在线之后，再构造响应对象
         SingleMessageResponsePacket singleMessageResponsePacket = new SingleMessageResponsePacket();
 
@@ -39,8 +47,32 @@ public class SingleMessageRequestHandler extends SimpleChannelInboundHandler<Sin
         //填充响应对象属性
         singleMessageResponsePacket.setFromUserId(requestSession.getUserId());
         singleMessageResponsePacket.setFromUsername(requestSession.getUsername());
+        //确定是否是好友
+        long fromUserId = SessionUtil.getSession(ctx.channel()).getUserId();
+        if (!checkIsFriend(fromUserId, toUserId)) {
+            singleMessageResponsePacket.setSuccess(false);
+            singleMessageResponsePacket.setErrorReason("您不是对方的好友，无法发送消息！");
+            ctx.channel().writeAndFlush(singleMessageResponsePacket);
+            return;
+        }
+
+        singleMessageResponsePacket.setSuccess(true);
         singleMessageResponsePacket.setMessage(singleMessageRequestPacket.getMessage());
 
         toUserChannel.writeAndFlush(singleMessageResponsePacket);
+    }
+
+    /**
+     * 检查请求发送消息的用户和对方是否是好友关系
+     * @param fromUserId
+     * @param toUserId
+     * @return
+     */
+    private boolean checkIsFriend(long fromUserId, long toUserId) {
+        try (SqlSession sqlSession = DataBaseUtil.getSqlSession()) {
+            FriendListMapper friendListMapper = sqlSession.getMapper(FriendListMapper.class);
+            Set<Long> friendIds = friendListMapper.selectFriendIdsByUserId(fromUserId);
+            return friendIds.contains(toUserId);
+        }
     }
 }

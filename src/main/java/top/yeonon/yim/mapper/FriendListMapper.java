@@ -4,6 +4,7 @@ import top.yeonon.yim.pojo.FriendList;
 import top.yeonon.yim.pojo.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface FriendListMapper {
     int deleteByPrimaryKey(Long id);
@@ -18,5 +19,5 @@ public interface FriendListMapper {
 
     int updateByPrimaryKey(FriendList record);
 
-    List<Long> selectFriendIdsByUserId(Long userId);
+    Set<Long> selectFriendIdsByUserId(Long userId);
 }

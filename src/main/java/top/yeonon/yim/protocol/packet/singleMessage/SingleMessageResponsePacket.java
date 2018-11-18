@@ -19,6 +19,9 @@ public class SingleMessageResponsePacket extends Packet {
     private String fromUsername;
     private String message;
 
+    private boolean success;
+    private String errorReason;
+
     @Override
     public byte getCommand() {
         return Command.SINGLE_MESSAGE_RESPONSE.getCode();

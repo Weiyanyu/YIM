@@ -35,7 +35,10 @@ public class AddFriendResponseProxyHandler extends SimpleChannelInboundHandler<A
         fromChannel.writeAndFlush(responsePacket);
         toChannel.writeAndFlush(responsePacket);
 
-        addFriendShip(toUserId, toUsername, fromUserId, fromUsername);
+        //把耗时的数据库任务扔到线程池中异步执行
+        ctx.executor().submit(() -> {
+            addFriendShip(toUserId, toUsername, fromUserId, fromUsername);
+        });
     }
 
     private void addFriendShip(long toUserId, String toUsername, long fromUserId, String fromUsername) {

@@ -17,7 +17,12 @@ public class SingleMessageResponseHandler extends SimpleChannelInboundHandler<Si
         //仅仅简单的打印消息即可
         String fromUsername = singleMessageResponsePacket.getFromUsername();
         long fromUserId = singleMessageResponsePacket.getFromUserId();
-        String message = singleMessageResponsePacket.getMessage();
-        System.out.println(fromUserId + ":" + fromUsername + " -> " + message);
+        if (singleMessageResponsePacket.isSuccess()) {
+            String message = singleMessageResponsePacket.getMessage();
+            System.out.println(fromUserId + ":" + fromUsername + " -> " + message);
+        } else {
+            System.out.println("发送消息失败！原因是：" + singleMessageResponsePacket.getErrorReason());
+        }
+
     }
 }
