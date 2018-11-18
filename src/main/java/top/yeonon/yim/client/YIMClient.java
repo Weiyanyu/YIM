@@ -56,6 +56,8 @@ public final class YIMClient {
                         pipeline.addLast(new JoinGroupResponseHandler());
                         pipeline.addLast(new QuiteGroupResponseHandler());
                         pipeline.addLast(new GroupMessageResponseHandler());
+                        pipeline.addLast(new AddFriendRequestHandler());
+                        pipeline.addLast(new AddFriendResponseHandler());
 
                         pipeline.addLast(new PacketEncoder());
 

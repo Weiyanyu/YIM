@@ -20,8 +20,8 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
     protected void channelRead0(ChannelHandlerContext ctx, LoginResponsePacket loginResponsePacket) throws Exception {
         //如果登录请求是成功的，就打印消息
         if (loginResponsePacket.isSuccess()) {
-            String username = loginResponsePacket.getUsername();
-            long userId = loginResponsePacket.getUserId();
+            String username = loginResponsePacket.getUser().getUsername();
+            long userId = loginResponsePacket.getUser().getId();
             System.out.println("登录成功，欢迎回来，" + username);
             System.out.println("您的ID是： " + userId);
 

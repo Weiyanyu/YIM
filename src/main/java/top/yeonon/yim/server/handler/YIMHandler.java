@@ -3,6 +3,7 @@ package top.yeonon.yim.server.handler;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import top.yeonon.yim.client.handler.AddFriendResponseHandler;
 import top.yeonon.yim.command.Command;
 import top.yeonon.yim.protocol.packet.Packet;
 
@@ -29,7 +30,8 @@ public class YIMHandler extends SimpleChannelInboundHandler<Packet> {
         handlerMap.put(Command.JOIN_GROUP_REQUEST.getCode(), JoinGroupRequestHandler.INSTANCE);
         handlerMap.put(Command.QUITE_GROUP_REQUEST.getCode(), QuiteGroupRequestHandler.INSTANCE);
         handlerMap.put(Command.GROUP_MESSAGE_REQUEST.getCode(), GroupMessageRequestHandler.INSTANCE);
-
+        handlerMap.put(Command.ADD_FRIEND_REQUEST.getCode(), AddFriendRequestProxyHandler.INSTANCE);
+        handlerMap.put(Command.ADD_FRIEND_RESPONSE.getCode(), AddFriendResponseProxyHandler.INSTANCE);
     }
 
 

@@ -11,9 +11,6 @@ import top.yeonon.yim.protocol.packet.login.LoginRequestPacket;
 import top.yeonon.yim.protocol.packet.login.LoginResponsePacket;
 import top.yeonon.yim.util.DataBaseUtil;
 import top.yeonon.yim.util.SessionUtil;
-
-import java.util.concurrent.atomic.AtomicLong;
-
 /**
  * 登录请求处理器
  * @Author yeonon
@@ -26,54 +23,48 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
 
     private LoginRequestHandler() {}
 
-    //用户生成id
-    private final static AtomicLong id = new AtomicLong(0);
-
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket loginRequestPacket) throws Exception {
-        LoginResponsePacket loginResponsePacket = new LoginResponsePacket();
-        loginResponsePacket.setVersion(loginRequestPacket.getVersion());
+    protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket requestPacket) throws Exception {
+        LoginResponsePacket responsePacket = new LoginResponsePacket();
+        responsePacket.setVersion(requestPacket.getVersion());
 
-        String username = loginRequestPacket.getUsername();
-        long userId = id.getAndIncrement();
-
-        //构造响应对象，设置id和username
-        loginResponsePacket.setUserId(userId);
-        loginResponsePacket.setUsername(username);
+        String username = requestPacket.getUsername();
 
         //验证通过后才是登录成功
-        if (validate(loginRequestPacket)) {
-            loginResponsePacket.setSuccess(true);
-            loginResponsePacket.setVersion(loginRequestPacket.getVersion());
-
+        if (validate(requestPacket, responsePacket)) {
+            //构造响应对象，设置id和username
+            responsePacket.setSuccess(true);
+            responsePacket.setVersion(requestPacket.getVersion());
             //将Session和Channel绑定，Session即表示用户会话
-            SessionUtil.bindSession(new Session(userId, username),
+            SessionUtil.bindSession(new Session(responsePacket.getUser().getId(), username),
                                    ctx.channel());
-
             System.out.println("[" + username + "]登录成功");
         } else {
-            loginResponsePacket.setSuccess(false);
-            loginResponsePacket.setErrorReason("登录失败，请检查用户名和密码！");
+            responsePacket.setSuccess(false);
+            responsePacket.setErrorReason("登录失败，请检查用户名和密码！");
         }
-        ctx.channel().writeAndFlush(loginResponsePacket);
+        ctx.channel().writeAndFlush(responsePacket);
     }
 
 
     /**
      * 验证用户名和密码
-     * @param loginRequestPacket
+     * @param requestPacket
      * @return
      */
-    private boolean validate(LoginRequestPacket loginRequestPacket) {
+    private boolean validate(LoginRequestPacket requestPacket, LoginResponsePacket responsePacket) {
         //sqlSession最好是线程私有的，而且用完之后要关闭，避免资源泄露
         try (SqlSession sqlSession = DataBaseUtil.getSqlSession()){
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            User user = userMapper.selectUserByUsernameAndPassword(loginRequestPacket.getUsername(),
-                    loginRequestPacket.getPassword());
-            if (user == null) {
-                return false;
+            User user = userMapper.selectUserByUsernameAndPassword(requestPacket.getUsername(),
+                    requestPacket.getPassword());
+            if (user != null) {
+                //将user对象放到response里
+                user.setPassword("");
+                responsePacket.setUser(user);
+                return true;
             }
-            return true;
+            return false;
         }
     }
 }

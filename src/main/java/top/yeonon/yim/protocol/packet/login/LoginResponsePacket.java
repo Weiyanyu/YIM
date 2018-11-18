@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.yeonon.yim.command.Command;
+import top.yeonon.yim.pojo.User;
 import top.yeonon.yim.protocol.packet.Packet;
 
 /**
@@ -15,9 +16,7 @@ import top.yeonon.yim.protocol.packet.Packet;
 @NoArgsConstructor
 public class LoginResponsePacket extends Packet {
 
-    private long userId;
-
-    private String username;
+    private User user;
 
     private boolean isSuccess;
 

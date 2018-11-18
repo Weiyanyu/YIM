@@ -1,13 +1,10 @@
 package top.yeonon.yim.server;
 
-
-import com.sun.corba.se.impl.interceptors.PICurrent;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.apache.log4j.Logger;
-import top.yeonon.yim.client.handler.HeartBeatTimerHandler;
 import top.yeonon.yim.handler.*;
 import top.yeonon.yim.server.handler.*;
 
@@ -72,6 +69,10 @@ public final class YIMServer {
     public static void main(String[] args) {
         int port = 8000;
         YIMServer.start(port, true);
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("服务器关闭！");
+        }));
     }
 
 }

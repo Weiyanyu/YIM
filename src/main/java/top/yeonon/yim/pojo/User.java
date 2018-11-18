@@ -7,10 +7,13 @@ public class User {
 
     private String password;
 
-    public User(Long id, String username, String password) {
+    private Long friendListId;
+
+    public User(Long id, String username, String password, Long friendListId) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.friendListId = friendListId;
     }
 
     public User() {
@@ -39,5 +42,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public Long getFriendListId() {
+        return friendListId;
+    }
+
+    public void setFriendListId(Long friendListId) {
+        this.friendListId = friendListId;
     }
 }

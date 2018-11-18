@@ -82,8 +82,15 @@
         <!--</table>-->
         <table tableName="user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="id" javaType="java.lang.Long"/>
+            <columnOverride column="friend_list_id" javaType="java.lang.Long" />
         </table>
 
+
+        <table tableName="friend_list" domainObjectName="FriendList" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="id" javaType="java.lang.Long"/>
+            <columnOverride column="user_id" javaType="java.lang.Long"/>
+            <columnOverride column="friend_id" javaType="java.lang.Long" />
+        </table>
 
     </context>
 </generatorConfiguration>

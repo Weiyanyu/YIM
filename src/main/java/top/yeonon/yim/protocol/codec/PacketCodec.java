@@ -69,26 +69,9 @@ public class PacketCodec {
 
         //初始化以及填充
         packetTypeMaps = new ConcurrentHashMap<>();
-        packetTypeMaps.put(Command.LOGIN_REQUEST.getCode(), LoginRequestPacket.class);
-        packetTypeMaps.put(Command.LOGIN_RESPONSE.getCode(), LoginResponsePacket.class);
-        packetTypeMaps.put(Command.LOGOUT_REQUEST.getCode(), LogoutRequestPacket.class);
-        packetTypeMaps.put(Command.LOGOUT_RESPONSE.getCode(), LogoutResponsePacket.class);
-        packetTypeMaps.put(Command.SINGLE_MESSAGE_REQUEST.getCode(), SingleMessageRequestPacket.class);
-        packetTypeMaps.put(Command.SINGLE_MESSAGE_RESPONSE.getCode(), SingleMessageResponsePacket.class);
-        packetTypeMaps.put(Command.CREATE_GROUP_REQUEST.getCode(), CreateGroupRequestPacket.class);
-        packetTypeMaps.put(Command.CREATE_GROUP_RESPONSE.getCode(), CreateGroupResponsePacket.class);
-        packetTypeMaps.put(Command.LIST_GROUP_MEMBER_REQUEST.getCode(), ListGroupMemberRequestPacket.class);
-        packetTypeMaps.put(Command.LIST_GROUP_MEMBER_RESPONSE.getCode(), ListGroupMemberResponsePacket.class);
-        packetTypeMaps.put(Command.JOIN_GROUP_REQUEST.getCode(), JoinGroupRequestPacket.class);
-        packetTypeMaps.put(Command.JOIN_GROUP_RESPONSE.getCode(), JoinGroupResponsePacket.class);
-        packetTypeMaps.put(Command.QUITE_GROUP_REQUEST.getCode(), QuiteGroupRequestPacket.class);
-        packetTypeMaps.put(Command.QUITE_GROUP_RESPONSE.getCode(), QuiteGroupResponsePacket.class);
-        packetTypeMaps.put(Command.GROUP_MESSAGE_REQUEST.getCode(), GroupMessageRequestPacket.class);
-        packetTypeMaps.put(Command.GROUP_MESSAGE_RESPONSE.getCode(), GroupMessageResponsePacket.class);
-        packetTypeMaps.put(Command.HEART_BEAT_REQUEST.getCode(), HeartBeatRequestPacket.class);
-        packetTypeMaps.put(Command.HEART_BEAT_RESPONSE.getCode(), HeartBeatResponsePacket.class);
-
-        //TODO 对于这些初始化的过程，目前想到的是使用反射来自动添加，但那样效率可能会降低很多，而提高的仅仅是代码可读性
+        for (Command command : Command.values()) {
+            packetTypeMaps.put(command.getCode(), command.getType());
+        }
     }
 
 
