@@ -14,6 +14,7 @@ import top.yeonon.yim.util.SessionUtil;
 import java.util.Set;
 
 /**
+ * 添加好友的代理，相当于一个中转站
  * @Author yeonon
  * @date 2018/11/18 0018 13:38
  **/
@@ -28,11 +29,13 @@ public class AddFriendRequestProxyHandler extends SimpleChannelInboundHandler<Ad
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, AddFriendRequestPacket requestPacket) throws Exception {
+        //先拿到对方和己方的ID
         long toUserId = requestPacket.getToUserId();
         long fromUserId = requestPacket.getFromUserId();
+        //拿到对方的channel
         Channel toChannel = SessionUtil.getChannel(toUserId);
 
-        //如果用户不在线
+        //如果用户不在线，直接把消息发送回发送方
         if (toChannel == null || !toChannel.isActive()) {
             AddFriendResponsePacket responsePacket = new AddFriendResponsePacket();
             responsePacket.setSuccess(false);
@@ -41,7 +44,7 @@ public class AddFriendRequestProxyHandler extends SimpleChannelInboundHandler<Ad
             return;
         }
 
-        //如果已经是好友关系
+        //如果已经是好友关系，同样直接把消息发送回发送方
         if (checkFriendList(fromUserId, toUserId)) {
             AddFriendResponsePacket responsePacket = new AddFriendResponsePacket();
             responsePacket.setSuccess(false);

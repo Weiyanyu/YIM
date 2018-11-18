@@ -2,12 +2,20 @@ package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
 import top.yeonon.yim.protocol.packet.addFriend.AddFriendRequestPacket;
-import top.yeonon.yim.protocol.packet.addFriend.AddFriendResponsePacket;
 import top.yeonon.yim.util.SessionUtil;
 
 import java.util.Scanner;
 
 /**
+ *
+ * 添加好友的整个流程如下所示：
+ *                     our  YIM  server
+ *   send response to A|∧          ∧| forward request to B
+ *          <---------- |           | ---------->
+ *        A -------------           ------------- B
+ * send request to server           construct response to server
+ *
+ *
  * @Author yeonon
  * @date 2018/11/18 0018 14:05
  **/

@@ -19,15 +19,18 @@ public class AddFriendRequestHandler extends SimpleChannelInboundHandler<AddFrie
         System.out.println("这是他的好友申请信息： " + requestPacket.getRequestMessage());
 
         //暂时先默认直接同意
+        //TODO 目前因为只是命令行，不方便做确认
         Session session = SessionUtil.getSession(ctx.channel());
         AddFriendResponsePacket responsePacket = new AddFriendResponsePacket();
         responsePacket.setSuccess(true);
 
+        //构造响应对象
         responsePacket.setFromUserId(session.getUserId());
         responsePacket.setFromUsername(session.getUsername());
         responsePacket.setToUserId(requestPacket.getFromUserId());
         responsePacket.setToUsername(requestPacket.getFromUsername());
 
+        //发送到服务端
         ctx.channel().writeAndFlush(responsePacket);
     }
 }

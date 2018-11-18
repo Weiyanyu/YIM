@@ -12,6 +12,7 @@ public class AddFriendResponseHandler extends SimpleChannelInboundHandler<AddFri
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, AddFriendResponsePacket responsePacket) throws Exception {
+        //直接打印消息就行，注意如果添加成功的话，双发都能收到消息，如果失败，就只有请求发收到消息
         if (responsePacket.isSuccess()) {
             System.out.println("添加好友成功，你们现在可以一起聊天了！");
         } else {

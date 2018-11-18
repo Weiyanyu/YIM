@@ -12,6 +12,8 @@ import top.yeonon.yim.util.DataBaseUtil;
 import top.yeonon.yim.util.SessionUtil;
 
 /**
+ *
+ * 代理器，相当于中转站
  * @Author yeonon
  * @date 2018/11/18 0018 13:57
  **/
@@ -24,12 +26,13 @@ public class AddFriendResponseProxyHandler extends SimpleChannelInboundHandler<A
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, AddFriendResponsePacket responsePacket) throws Exception {
+        //先拿到对方和己方的ID和username
         long toUserId = responsePacket.getToUserId();
         long fromUserId = responsePacket.getFromUserId();
-
         String toUsername = responsePacket.getToUsername();
         String fromUsername = responsePacket.getFromUsername();
 
+        //拿到双发的channel，并把消息传递给双方
         Channel fromChannel = SessionUtil.getChannel(fromUserId);
         Channel toChannel = SessionUtil.getChannel(toUserId);
         fromChannel.writeAndFlush(responsePacket);
@@ -41,7 +44,15 @@ public class AddFriendResponseProxyHandler extends SimpleChannelInboundHandler<A
         });
     }
 
+    /**
+     * 往好友关系表中添加双方的好友关系
+     * @param toUserId
+     * @param toUsername
+     * @param fromUserId
+     * @param fromUsername
+     */
     private void addFriendShip(long toUserId, String toUsername, long fromUserId, String fromUsername) {
+        //这里的逻辑可能有点绕，但只要弄清楚整个添加好友的逻辑就行了
         FriendList friendList1 = new FriendList();
         friendList1.setUserId(toUserId);
         friendList1.setFriendId(fromUserId);
