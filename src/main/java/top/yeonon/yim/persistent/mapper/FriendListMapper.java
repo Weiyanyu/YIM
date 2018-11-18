@@ -1,9 +1,8 @@
-package top.yeonon.yim.mapper;
+package top.yeonon.yim.persistent.mapper;
 
-import top.yeonon.yim.pojo.FriendList;
-import top.yeonon.yim.pojo.User;
+import top.yeonon.yim.persistent.pojo.FriendList;
+import top.yeonon.yim.persistent.pojo.User;
 
-import java.util.List;
 import java.util.Set;
 
 public interface FriendListMapper {

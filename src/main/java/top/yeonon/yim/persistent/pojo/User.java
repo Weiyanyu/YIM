@@ -1,4 +1,4 @@
-package top.yeonon.yim.pojo;
+package top.yeonon.yim.persistent.pojo;
 
 public class User {
     private Long id;

@@ -6,14 +6,13 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.ibatis.session.SqlSession;
 import top.yeonon.yim.common.Session;
-import top.yeonon.yim.mapper.FriendListMapper;
-import top.yeonon.yim.pojo.FriendList;
+import top.yeonon.yim.persistent.mapper.FriendListMapper;
+import top.yeonon.yim.persistent.pojo.FriendList;
 import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageRequestPacket;
 import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageResponsePacket;
 import top.yeonon.yim.util.DataBaseUtil;
 import top.yeonon.yim.util.SessionUtil;
 
-import java.util.List;
 import java.util.Set;
 
 /**

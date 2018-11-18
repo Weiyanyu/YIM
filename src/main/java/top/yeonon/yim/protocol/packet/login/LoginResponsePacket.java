@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.yeonon.yim.command.Command;
-import top.yeonon.yim.pojo.User;
+import top.yeonon.yim.persistent.pojo.User;
 import top.yeonon.yim.protocol.packet.Packet;
 
 /**

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="top.yeonon.yim.mapper.FriendListMapper" >
-  <resultMap id="BaseResultMap" type="top.yeonon.yim.pojo.FriendList" >
+<mapper namespace="top.yeonon.yim.persistent.mapper.FriendListMapper" >
+  <resultMap id="BaseResultMap" type="top.yeonon.yim.persistent.pojo.FriendList" >
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Long" />
       <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Long" />
@@ -22,13 +22,13 @@
     delete from friend_list
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="top.yeonon.yim.pojo.FriendList" >
+  <insert id="insert" parameterType="top.yeonon.yim.persistent.pojo.FriendList" >
     insert into friend_list (id, user_id, friend_id, 
       friend_username)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{friendId,jdbcType=INTEGER}, 
       #{friendUsername,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="top.yeonon.yim.pojo.FriendList" >
+  <insert id="insertSelective" parameterType="top.yeonon.yim.persistent.pojo.FriendList" >
     insert into friend_list
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -59,7 +59,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="top.yeonon.yim.pojo.FriendList" >
+  <update id="updateByPrimaryKeySelective" parameterType="top.yeonon.yim.persistent.pojo.FriendList" >
     update friend_list
     <set >
       <if test="userId != null" >
@@ -74,7 +74,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="top.yeonon.yim.pojo.FriendList" >
+  <update id="updateByPrimaryKey" parameterType="top.yeonon.yim.persistent.pojo.FriendList" >
     update friend_list
     set user_id = #{userId,jdbcType=INTEGER},
       friend_id = #{friendId,jdbcType=INTEGER},

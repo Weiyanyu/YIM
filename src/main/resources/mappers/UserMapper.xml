@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="top.yeonon.yim.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="top.yeonon.yim.pojo.User" >
+<mapper namespace="top.yeonon.yim.persistent.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="top.yeonon.yim.persistent.pojo.User" >
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Long" />
       <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -22,13 +22,13 @@
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="top.yeonon.yim.pojo.User" >
+  <insert id="insert" parameterType="top.yeonon.yim.persistent.pojo.User" >
     insert into user (id, username, password, 
       friend_list_id)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{friendListId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="top.yeonon.yim.pojo.User" >
+  <insert id="insertSelective" parameterType="top.yeonon.yim.persistent.pojo.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -59,7 +59,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="top.yeonon.yim.pojo.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="top.yeonon.yim.persistent.pojo.User" >
     update user
     <set >
       <if test="username != null" >
@@ -74,7 +74,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="top.yeonon.yim.pojo.User" >
+  <update id="updateByPrimaryKey" parameterType="top.yeonon.yim.persistent.pojo.User" >
     update user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
@@ -82,7 +82,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectUserByUsernameAndPassword" resultType="top.yeonon.yim.pojo.User">
+  <select id="selectUserByUsernameAndPassword" resultType="top.yeonon.yim.persistent.pojo.User">
     SELECT
     <include refid="Base_Column_List" />
     FROM user WHERE

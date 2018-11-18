@@ -1,7 +1,7 @@
-package top.yeonon.yim.mapper;
+package top.yeonon.yim.persistent.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import top.yeonon.yim.pojo.User;
+import top.yeonon.yim.persistent.pojo.User;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Long id);

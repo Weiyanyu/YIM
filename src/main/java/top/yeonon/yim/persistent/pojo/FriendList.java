@@ -1,4 +1,4 @@
-package top.yeonon.yim.pojo;
+package top.yeonon.yim.persistent.pojo;
 
 public class FriendList {
     private Long id;

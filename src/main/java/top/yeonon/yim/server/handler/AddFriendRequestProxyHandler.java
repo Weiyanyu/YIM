@@ -5,13 +5,12 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.ibatis.session.SqlSession;
-import top.yeonon.yim.mapper.FriendListMapper;
+import top.yeonon.yim.persistent.mapper.FriendListMapper;
 import top.yeonon.yim.protocol.packet.addFriend.AddFriendRequestPacket;
 import top.yeonon.yim.protocol.packet.addFriend.AddFriendResponsePacket;
 import top.yeonon.yim.util.DataBaseUtil;
 import top.yeonon.yim.util.SessionUtil;
 
-import java.util.List;
 import java.util.Set;
 
 /**
