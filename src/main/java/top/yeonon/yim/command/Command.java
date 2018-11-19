@@ -5,12 +5,16 @@ import top.yeonon.yim.protocol.packet.addFriend.AddFriendRequestPacket;
 import top.yeonon.yim.protocol.packet.addFriend.AddFriendResponsePacket;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestPacket;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponsePacket;
+import top.yeonon.yim.protocol.packet.deleteFriend.DeleteFriendRequestPacket;
+import top.yeonon.yim.protocol.packet.deleteFriend.DeleteFriendResponsePacket;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageRequestPacket;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageResponsePacket;
 import top.yeonon.yim.protocol.packet.heartBeat.HeartBeatRequestPacket;
 import top.yeonon.yim.protocol.packet.heartBeat.HeartBeatResponsePacket;
 import top.yeonon.yim.protocol.packet.joinGroup.JoinGroupRequestPacket;
 import top.yeonon.yim.protocol.packet.joinGroup.JoinGroupResponsePacket;
+import top.yeonon.yim.protocol.packet.listFriend.ListFriendsRequestPacket;
+import top.yeonon.yim.protocol.packet.listFriend.ListFriendsResponsePacket;
 import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberRequestPacket;
 import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberResponsePacket;
 import top.yeonon.yim.protocol.packet.login.LoginRequestPacket;
@@ -49,9 +53,12 @@ public enum Command {
     HEART_BEAT_REQUEST((byte)17, "heartBeat", HeartBeatRequestPacket.class),
     HEART_BEAT_RESPONSE((byte)18, "heartBeat", HeartBeatResponsePacket.class),
     ADD_FRIEND_REQUEST((byte)19, "addFriend", AddFriendRequestPacket.class),
-    ADD_FRIEND_RESPONSE((byte)20, "addFriend", AddFriendResponsePacket.class);
-//    DELETE_FRIEND_REQUEST((byte)21, "deleteFriend"),
-//    DELETE_FRIEND_RESPONSE((byte)22, "deleteFriend");
+    ADD_FRIEND_RESPONSE((byte)20, "addFriend", AddFriendResponsePacket.class),
+    DELETE_FRIEND_REQUEST((byte)21, "deleteFriend", DeleteFriendRequestPacket.class),
+    DELETE_FRIEND_RESPONSE((byte)22, "deleteFriend", DeleteFriendResponsePacket.class),
+    LIST_FRIENDS_REQUEST((byte)23, "listFriends", ListFriendsRequestPacket.class),
+    LIST_FRIENDS_RESPONSE((byte)24, "listFriends", ListFriendsResponsePacket.class);
+
 
     private byte code;
     private String name;

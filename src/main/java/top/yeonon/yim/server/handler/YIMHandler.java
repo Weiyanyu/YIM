@@ -4,8 +4,10 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import top.yeonon.yim.client.handler.AddFriendResponseHandler;
+import top.yeonon.yim.client.handler.DeleteFriendResponseHandler;
 import top.yeonon.yim.command.Command;
 import top.yeonon.yim.protocol.packet.Packet;
+import top.yeonon.yim.protocol.packet.listFriend.ListFriendsRequestPacket;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -32,6 +34,8 @@ public class YIMHandler extends SimpleChannelInboundHandler<Packet> {
         handlerMap.put(Command.GROUP_MESSAGE_REQUEST.getCode(), GroupMessageRequestHandler.INSTANCE);
         handlerMap.put(Command.ADD_FRIEND_REQUEST.getCode(), AddFriendRequestProxyHandler.INSTANCE);
         handlerMap.put(Command.ADD_FRIEND_RESPONSE.getCode(), AddFriendResponseProxyHandler.INSTANCE);
+        handlerMap.put(Command.DELETE_FRIEND_REQUEST.getCode(), DeleteFriendRequestHandler.INSTANCE);
+        handlerMap.put(Command.LIST_FRIENDS_REQUEST.getCode(), ListFriendsRequestHandler.INSTANCE);
     }
 
 

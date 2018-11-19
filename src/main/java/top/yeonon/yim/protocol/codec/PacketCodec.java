@@ -28,8 +28,6 @@ public class PacketCodec {
     //魔数
     public static final int MAGIC_NUMBER = 0x15010622;
 
-    private static final String PACKET_CLASS_PATH = "top.yeonon.yim.protocol.packet";
-
     //序列化器的Map
     private static final Map<Byte, Serializer> serializerMaps;
 

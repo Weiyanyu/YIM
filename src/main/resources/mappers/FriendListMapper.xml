@@ -87,4 +87,22 @@
     FROM friend_list
     WHERE user_id=#{userId}
   </select>
+
+  <delete id="deleteFriendShip" parameterType="list">
+    DELETE FROM friend_list
+    WHERE user_id IN
+    <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+    AND friend_id IN
+    <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+  <select id="selectFriendUsernameById" resultType="java.lang.String">
+    SELECT friend_username
+    FROM friend_list
+    WHERE user_id = #{userId}
+  </select>
 </mapper>

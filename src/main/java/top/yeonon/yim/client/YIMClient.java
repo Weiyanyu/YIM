@@ -13,6 +13,7 @@ import top.yeonon.yim.handler.Separator;
 import top.yeonon.yim.handler.YIMIdleStateHandler;
 import top.yeonon.yim.command.CommandExecutorManager;
 import top.yeonon.yim.command.LoginCommandExecutor;
+import top.yeonon.yim.server.handler.DeleteFriendRequestHandler;
 import top.yeonon.yim.util.SessionUtil;
 
 import java.util.Scanner;
@@ -58,6 +59,8 @@ public final class YIMClient {
                         pipeline.addLast(new GroupMessageResponseHandler());
                         pipeline.addLast(new AddFriendRequestHandler());
                         pipeline.addLast(new AddFriendResponseHandler());
+                        pipeline.addLast(new DeleteFriendResponseHandler());
+                        pipeline.addLast(new ListFriendsResponseHandler());
 
                         pipeline.addLast(new PacketEncoder());
 

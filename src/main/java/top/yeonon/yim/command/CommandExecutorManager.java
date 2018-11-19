@@ -1,6 +1,7 @@
 package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
+import org.omg.CORBA.COMM_FAILURE;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -31,6 +32,8 @@ public class CommandExecutorManager implements CommandExecutor {
         commandExecutorMaps.put(Command.QUITE_GROUP_REQUEST.getName(), QuiteGroupCommandExecutor.INSTANCE);
         commandExecutorMaps.put(Command.GROUP_MESSAGE_REQUEST.getName(), GroupMessageCommandExecutor.INSTANCE);
         commandExecutorMaps.put(Command.ADD_FRIEND_REQUEST.getName(), AddFriendCommandExecutor.INSTANCE);
+        commandExecutorMaps.put(Command.DELETE_FRIEND_REQUEST.getName(), DeleteFriendCommandExecutor.INSTANCE);
+        commandExecutorMaps.put(Command.LIST_FRIENDS_REQUEST.getName(), ListFriendsCommandExecutor.INSTANCE);
 
         INSTANCE = new CommandExecutorManager();
     }
