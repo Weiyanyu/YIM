@@ -5,11 +5,19 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
+import org.apache.ibatis.session.SqlSession;
 import top.yeonon.yim.common.Session;
+import top.yeonon.yim.persistent.mapper.GroupListMapper;
+import top.yeonon.yim.persistent.mapper.GroupMapper;
+import top.yeonon.yim.persistent.pojo.Group;
+import top.yeonon.yim.persistent.pojo.GroupList;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageRequestPacket;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageResponsePacket;
+import top.yeonon.yim.util.DataBaseUtil;
 import top.yeonon.yim.util.GroupUtil;
 import top.yeonon.yim.util.SessionUtil;
+
+import java.util.List;
 
 /**
  * 群组消息处理器
@@ -27,13 +35,12 @@ public class GroupMessageRequestHandler extends SimpleChannelInboundHandler<Grou
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, GroupMessageRequestPacket requestPacket) throws Exception {
         long groupId = requestPacket.getToGroupId();
-        ChannelGroup group = GroupUtil.getChannelGroup(groupId);
         //拿到Session
         Session session = SessionUtil.getSession(ctx.channel());
 
         //如果该用户不在群组里，不要把消息发送到群组group里
         GroupMessageResponsePacket responsePacket = new GroupMessageResponsePacket();
-        if (!group.contains(ctx.channel())) {
+        if (!GroupUtil.checkGroup(session.getUserId(), groupId)) {
             responsePacket.setSuccess(false);
             responsePacket.setErrorReason("您没有再该群组里，请先加入群组");
             ctx.channel().writeAndFlush(responsePacket);
@@ -48,11 +55,17 @@ public class GroupMessageRequestHandler extends SimpleChannelInboundHandler<Grou
         responsePacket.setMessage(requestPacket.getMessage());
 
         //将消息广播给群组里的成员
-        for (Channel channel : group) {
-            if (channel.equals(ctx.channel())) {
+        List<GroupList> groupLists = GroupUtil.getGroupMember(groupId);
+        for (GroupList groupList : groupLists) {
+            Channel channel = SessionUtil.getChannel(groupList.getUserId());
+            if (channel == null || channel.equals(ctx.channel())) {
                 continue;
             }
             channel.writeAndFlush(responsePacket);
         }
+
     }
+
+
+
 }

@@ -4,6 +4,7 @@ import io.netty.channel.Channel;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestPacket;
 import top.yeonon.yim.util.SessionUtil;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -31,6 +32,8 @@ public class CreateGroupCommandExecutor implements CommandExecutor {
 
         System.out.print("【拉人群聊】输入 userId 列表，userId 之间英文逗号隔开：");
         String[] ids = scanner.next().split(Separator);
+        System.out.print("请输入群组名称： ");
+        String groupName = scanner.next();
         Set<Long> userIdSet = new HashSet<>();
         //将id填充到Set里
         for (String id : ids) {
@@ -41,6 +44,7 @@ public class CreateGroupCommandExecutor implements CommandExecutor {
 
         CreateGroupRequestPacket createGroupRequestPacket = new CreateGroupRequestPacket();
         createGroupRequestPacket.setUserIdSet(userIdSet);
+        createGroupRequestPacket.setGroupName(groupName);
 
         channel.writeAndFlush(createGroupRequestPacket);
     }

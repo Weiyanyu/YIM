@@ -15,6 +15,8 @@ public class CreateGroupRequestPacket extends Packet {
 
     private Set<Long> userIdSet;
 
+    private String groupName;
+
     @Override
     public byte getCommand() {
         return Command.CREATE_GROUP_REQUEST.getCode();

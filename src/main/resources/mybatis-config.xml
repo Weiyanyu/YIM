@@ -19,5 +19,7 @@
     <mappers>
         <mapper resource="mappers/UserMapper.xml"/>
         <mapper resource="mappers/FriendListMapper.xml" />
+        <mapper resource="mappers/GroupMapper.xml" />
+        <mapper resource="mappers/GroupListMapper.xml" />
     </mappers>
 </configuration>

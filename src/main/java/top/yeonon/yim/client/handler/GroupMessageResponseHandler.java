@@ -2,7 +2,6 @@ package top.yeonon.yim.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageResponsePacket;
 
 /**

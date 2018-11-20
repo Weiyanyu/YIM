@@ -4,9 +4,17 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
+import org.apache.ibatis.session.SqlSession;
+import top.yeonon.yim.common.Session;
+import top.yeonon.yim.persistent.mapper.GroupListMapper;
+import top.yeonon.yim.persistent.mapper.GroupMapper;
+import top.yeonon.yim.persistent.pojo.Group;
+import top.yeonon.yim.persistent.pojo.GroupList;
 import top.yeonon.yim.protocol.packet.joinGroup.JoinGroupRequestPacket;
 import top.yeonon.yim.protocol.packet.joinGroup.JoinGroupResponsePacket;
+import top.yeonon.yim.util.DataBaseUtil;
 import top.yeonon.yim.util.GroupUtil;
+import top.yeonon.yim.util.SessionUtil;
 
 /**
  *
@@ -26,8 +34,10 @@ public class JoinGroupRequestHandler extends SimpleChannelInboundHandler<JoinGro
 
         //将当前channel加入到群组里，即用户进群
         long groupId = joinGroupRequestPacket.getGroupId();
-        ChannelGroup group = GroupUtil.getChannelGroup(groupId);
-        group.add(ctx.channel());
+        Session session = SessionUtil.getSession(ctx.channel());
+
+        //加入群组
+        GroupUtil.joinGroup(groupId, session);
 
         //构造响应对象
         JoinGroupResponsePacket joinGroupResponsePacket = new JoinGroupResponsePacket();
@@ -36,4 +46,6 @@ public class JoinGroupRequestHandler extends SimpleChannelInboundHandler<JoinGro
 
         ctx.channel().writeAndFlush(joinGroupResponsePacket);
     }
+
+
 }

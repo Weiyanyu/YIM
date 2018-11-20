@@ -2,9 +2,16 @@ package top.yeonon.yim;
 
 import org.apache.ibatis.session.SqlSession;
 import top.yeonon.yim.persistent.mapper.FriendListMapper;
+import top.yeonon.yim.persistent.mapper.GroupListMapper;
+import top.yeonon.yim.persistent.mapper.GroupMapper;
 import top.yeonon.yim.persistent.pojo.FriendList;
+import top.yeonon.yim.persistent.pojo.Group;
+import top.yeonon.yim.persistent.pojo.GroupList;
 import top.yeonon.yim.util.DataBaseUtil;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -14,9 +21,13 @@ import java.util.Set;
 public class Main {
 
     public static void main(String[] args) {
-        SqlSession sqlSession = DataBaseUtil.getSqlSession();
-        FriendListMapper mapper = sqlSession.getMapper(FriendListMapper.class);
-        Set<Long> ids = mapper.selectFriendIdsByUserId(1L);
-        ids.forEach(System.out::println);
+        try (SqlSession sqlSession = DataBaseUtil.getSqlSession()){
+            GroupListMapper groupListMapper = sqlSession.getMapper(GroupListMapper.class);
+            List<GroupList> lists = groupListMapper.selectGroupListByGroupId(7L);
+            for (GroupList groupList : lists) {
+                System.out.println(groupList);
+            }
+        }
+
     }
 }
