@@ -7,6 +7,7 @@ import top.yeonon.yim.client.handler.AddFriendResponseHandler;
 import top.yeonon.yim.client.handler.DeleteFriendResponseHandler;
 import top.yeonon.yim.command.Command;
 import top.yeonon.yim.protocol.packet.Packet;
+import top.yeonon.yim.protocol.packet.exception.ExceptionPacket;
 import top.yeonon.yim.protocol.packet.listFriend.ListFriendsRequestPacket;
 
 import java.util.Map;
@@ -43,5 +44,14 @@ public class YIMHandler extends SimpleChannelInboundHandler<Packet> {
     protected void channelRead0(ChannelHandlerContext ctx, Packet msg) throws Exception {
         //如果遇到不知名的指令，之前的handler肯定会已经处理了，所以这里不需要担心空指针
         handlerMap.get(msg.getCommand()).channelRead(ctx, msg);
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        ExceptionPacket exceptionPacket = new ExceptionPacket();
+        exceptionPacket.setErrorReason("服务器异常!");
+        //在服务端还是要打印异常堆栈的
+        cause.printStackTrace();
+        ctx.channel().writeAndFlush(exceptionPacket);
     }
 }

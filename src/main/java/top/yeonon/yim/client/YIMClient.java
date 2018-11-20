@@ -62,6 +62,8 @@ public final class YIMClient {
                         pipeline.addLast(new DeleteFriendResponseHandler());
                         pipeline.addLast(new ListFriendsResponseHandler());
 
+
+                        pipeline.addLast(new ExceptionHandler());
                         pipeline.addLast(new PacketEncoder());
 
                         pipeline.addLast(new HeartBeatTimerHandler());

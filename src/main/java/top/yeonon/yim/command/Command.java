@@ -7,6 +7,7 @@ import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestPacket;
 import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponsePacket;
 import top.yeonon.yim.protocol.packet.deleteFriend.DeleteFriendRequestPacket;
 import top.yeonon.yim.protocol.packet.deleteFriend.DeleteFriendResponsePacket;
+import top.yeonon.yim.protocol.packet.exception.ExceptionPacket;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageRequestPacket;
 import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageResponsePacket;
 import top.yeonon.yim.protocol.packet.heartBeat.HeartBeatRequestPacket;
@@ -34,6 +35,9 @@ import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageResponsePacket;
  **/
 public enum Command {
 
+    //0号表示异常
+    EXCEPTION((byte)0, "exception", ExceptionPacket.class),
+
     LOGIN_REQUEST((byte) 1, "login", LoginRequestPacket.class),
     LOGIN_RESPONSE((byte)2, "login", LoginResponsePacket.class),
     LOGOUT_REQUEST((byte)3, "logout", LogoutRequestPacket.class),
@@ -58,7 +62,6 @@ public enum Command {
     DELETE_FRIEND_RESPONSE((byte)22, "deleteFriend", DeleteFriendResponsePacket.class),
     LIST_FRIENDS_REQUEST((byte)23, "listFriends", ListFriendsRequestPacket.class),
     LIST_FRIENDS_RESPONSE((byte)24, "listFriends", ListFriendsResponsePacket.class);
-
 
     private byte code;
     private String name;
