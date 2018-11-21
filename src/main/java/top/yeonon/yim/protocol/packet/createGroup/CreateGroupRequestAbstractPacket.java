@@ -2,7 +2,7 @@ package top.yeonon.yim.protocol.packet.createGroup;
 
 import lombok.Data;
 import top.yeonon.yim.command.Command;
-import top.yeonon.yim.protocol.packet.Packet;
+import top.yeonon.yim.protocol.packet.AbstractPacket;
 
 import java.util.Set;
 
@@ -11,7 +11,7 @@ import java.util.Set;
  * @date 2018/11/16 0016 12:25
  **/
 @Data
-public class CreateGroupRequestPacket extends Packet {
+public class CreateGroupRequestAbstractPacket extends AbstractPacket {
 
     private Set<Long> userIdSet;
 

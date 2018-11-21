@@ -1,10 +1,9 @@
 package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
-import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestPacket;
+import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestAbstractPacket;
 import top.yeonon.yim.util.SessionUtil;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -15,7 +14,7 @@ import java.util.Set;
  **/
 public class CreateGroupCommandExecutor implements CommandExecutor {
 
-    private static final String Separator = ",";
+    private static final String SEPARATOR = ",";
 
     public static final CreateGroupCommandExecutor INSTANCE;
 
@@ -31,7 +30,7 @@ public class CreateGroupCommandExecutor implements CommandExecutor {
     public void exec(Scanner scanner, Channel channel) {
 
         System.out.print("【拉人群聊】输入 userId 列表，userId 之间英文逗号隔开：");
-        String[] ids = scanner.next().split(Separator);
+        String[] ids = scanner.next().split(SEPARATOR);
         System.out.print("请输入群组名称： ");
         String groupName = scanner.next();
         Set<Long> userIdSet = new HashSet<>();
@@ -42,7 +41,7 @@ public class CreateGroupCommandExecutor implements CommandExecutor {
         //将自己的id也加入到集合里
         userIdSet.add(SessionUtil.getSession(channel).getUserId());
 
-        CreateGroupRequestPacket createGroupRequestPacket = new CreateGroupRequestPacket();
+        CreateGroupRequestAbstractPacket createGroupRequestPacket = new CreateGroupRequestAbstractPacket();
         createGroupRequestPacket.setUserIdSet(userIdSet);
         createGroupRequestPacket.setGroupName(groupName);
 

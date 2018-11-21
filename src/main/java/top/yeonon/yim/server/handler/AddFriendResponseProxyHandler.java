@@ -7,7 +7,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.ibatis.session.SqlSession;
 import top.yeonon.yim.persistent.mapper.FriendListMapper;
 import top.yeonon.yim.persistent.pojo.FriendList;
-import top.yeonon.yim.protocol.packet.addFriend.AddFriendResponsePacket;
+import top.yeonon.yim.protocol.packet.addFriend.AddFriendResponseAbstractPacket;
 import top.yeonon.yim.util.DataBaseUtil;
 import top.yeonon.yim.util.SessionUtil;
 
@@ -18,14 +18,14 @@ import top.yeonon.yim.util.SessionUtil;
  * @date 2018/11/18 0018 13:57
  **/
 @ChannelHandler.Sharable
-public class AddFriendResponseProxyHandler extends SimpleChannelInboundHandler<AddFriendResponsePacket> {
+public class AddFriendResponseProxyHandler extends SimpleChannelInboundHandler<AddFriendResponseAbstractPacket> {
 
     public static final AddFriendResponseProxyHandler INSTANCE = new AddFriendResponseProxyHandler();
 
     private AddFriendResponseProxyHandler() {}
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, AddFriendResponsePacket responsePacket) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, AddFriendResponseAbstractPacket responsePacket) throws Exception {
         //先拿到对方和己方的ID和username
         long toUserId = responsePacket.getToUserId();
         long fromUserId = responsePacket.getFromUserId();

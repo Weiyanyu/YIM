@@ -2,7 +2,7 @@ package top.yeonon.yim.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import top.yeonon.yim.protocol.packet.heartBeat.HeartBeatRequestPacket;
+import top.yeonon.yim.protocol.packet.heartBeat.HeartBeatRequestAbstractPacket;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +24,7 @@ public class HeartBeatTimerHandler extends ChannelInboundHandlerAdapter {
     private void sendHeartBeat(ChannelHandlerContext ctx) {
         ctx.executor().schedule(() -> {
             if (ctx.channel().isActive()) {
-                ctx.channel().writeAndFlush(new HeartBeatRequestPacket());
+                ctx.channel().writeAndFlush(new HeartBeatRequestAbstractPacket());
                 sendHeartBeat(ctx);
             }
         }, TIME_INTERVAL, TimeUnit.SECONDS);

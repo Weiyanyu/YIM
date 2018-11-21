@@ -3,8 +3,8 @@ package top.yeonon.yim.server.handler;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import top.yeonon.yim.protocol.packet.logout.LogoutRequestPacket;
-import top.yeonon.yim.protocol.packet.logout.LogoutResponsePacket;
+import top.yeonon.yim.protocol.packet.logout.LogoutRequestAbstractPacket;
+import top.yeonon.yim.protocol.packet.logout.LogoutResponseAbstractPacket;
 import top.yeonon.yim.util.SessionUtil;
 
 /**
@@ -14,15 +14,15 @@ import top.yeonon.yim.util.SessionUtil;
  * @date 2018/11/15 0015 20:37
  **/
 @ChannelHandler.Sharable
-public class LogoutRequestHandler extends SimpleChannelInboundHandler<LogoutRequestPacket> {
+public class LogoutRequestHandler extends SimpleChannelInboundHandler<LogoutRequestAbstractPacket> {
 
     public static final LogoutRequestHandler INSTANCE = new LogoutRequestHandler();
 
     private LogoutRequestHandler() {}
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, LogoutRequestPacket logoutRequestPacket) throws Exception {
-        LogoutResponsePacket logoutResponsePacket = new LogoutResponsePacket();
+    protected void channelRead0(ChannelHandlerContext ctx, LogoutRequestAbstractPacket logoutRequestPacket) throws Exception {
+        LogoutResponseAbstractPacket logoutResponsePacket = new LogoutResponseAbstractPacket();
         long userId = logoutRequestPacket.getUserId();
         String username = logoutRequestPacket.getUsername();
 

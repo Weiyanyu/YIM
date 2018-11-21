@@ -1,7 +1,7 @@
 package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
-import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageRequestPacket;
+import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageRequestAbstractPacket;
 
 import java.util.Scanner;
 
@@ -24,7 +24,7 @@ public class SingleMessageCommandExecutor implements CommandExecutor {
         String message = scanner.next();
 
         //构造请求对象
-        SingleMessageRequestPacket singleMessageRequestPacket = new SingleMessageRequestPacket();
+        SingleMessageRequestAbstractPacket singleMessageRequestPacket = new SingleMessageRequestAbstractPacket();
         singleMessageRequestPacket.setToUserId(toUserId);
         singleMessageRequestPacket.setMessage(message);
 

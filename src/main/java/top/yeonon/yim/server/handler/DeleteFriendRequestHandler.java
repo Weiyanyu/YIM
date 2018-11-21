@@ -6,8 +6,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.ibatis.session.SqlSession;
 import top.yeonon.yim.persistent.mapper.FriendListMapper;
-import top.yeonon.yim.protocol.packet.deleteFriend.DeleteFriendRequestPacket;
-import top.yeonon.yim.protocol.packet.deleteFriend.DeleteFriendResponsePacket;
+import top.yeonon.yim.protocol.packet.deleteFriend.DeleteFriendRequestAbstractPacket;
+import top.yeonon.yim.protocol.packet.deleteFriend.DeleteFriendResponseAbstractPacket;
 import top.yeonon.yim.util.DataBaseUtil;
 import top.yeonon.yim.util.SessionUtil;
 
@@ -18,7 +18,7 @@ import java.util.Set;
  * @date 2018/11/19 0019 17:39
  **/
 @ChannelHandler.Sharable
-public class DeleteFriendRequestHandler extends SimpleChannelInboundHandler<DeleteFriendRequestPacket> {
+public class DeleteFriendRequestHandler extends SimpleChannelInboundHandler<DeleteFriendRequestAbstractPacket> {
 
     public static final DeleteFriendRequestHandler INSTANCE = new DeleteFriendRequestHandler();
 
@@ -26,11 +26,11 @@ public class DeleteFriendRequestHandler extends SimpleChannelInboundHandler<Dele
 
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, DeleteFriendRequestPacket requestPacket) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, DeleteFriendRequestAbstractPacket requestPacket) throws Exception {
         //拿到双方ID
         long toUserId = requestPacket.getUserId();
         long fromUserId = SessionUtil.getSession(ctx.channel()).getUserId();
-        DeleteFriendResponsePacket responsePacket = new DeleteFriendResponsePacket();
+        DeleteFriendResponseAbstractPacket responsePacket = new DeleteFriendResponseAbstractPacket();
 
         //如果两者不是好友关系，那就没有必要删除什么了
         if (!checkFriendList(fromUserId, toUserId)) {

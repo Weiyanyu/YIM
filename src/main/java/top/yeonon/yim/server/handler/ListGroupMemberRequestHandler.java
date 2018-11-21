@@ -1,26 +1,16 @@
 package top.yeonon.yim.server.handler;
 
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.group.ChannelGroup;
-import org.apache.ibatis.session.SqlSession;
 import top.yeonon.yim.common.Session;
-import top.yeonon.yim.persistent.mapper.GroupListMapper;
-import top.yeonon.yim.persistent.mapper.GroupMapper;
 import top.yeonon.yim.persistent.pojo.Group;
 import top.yeonon.yim.persistent.pojo.GroupList;
-import top.yeonon.yim.persistent.pojo.User;
-import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberRequestPacket;
-import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberResponsePacket;
-import top.yeonon.yim.util.DataBaseUtil;
+import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberRequestAbstractPacket;
+import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberResponseAbstractPacket;
 import top.yeonon.yim.util.GroupUtil;
-import top.yeonon.yim.util.SessionUtil;
 
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -30,7 +20,7 @@ import java.util.Set;
  * @date 2018/11/16 0016 13:33
  **/
 @ChannelHandler.Sharable
-public class ListGroupMemberRequestHandler extends SimpleChannelInboundHandler<ListGroupMemberRequestPacket> {
+public class ListGroupMemberRequestHandler extends SimpleChannelInboundHandler<ListGroupMemberRequestAbstractPacket> {
 
 
     public static final ListGroupMemberRequestHandler INSTANCE = new ListGroupMemberRequestHandler();
@@ -39,12 +29,12 @@ public class ListGroupMemberRequestHandler extends SimpleChannelInboundHandler<L
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, ListGroupMemberRequestPacket listGroupMemberRequestPacket) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, ListGroupMemberRequestAbstractPacket listGroupMemberRequestPacket) throws Exception {
         long groupId = listGroupMemberRequestPacket.getGroupId();
         //先拿到channelGroup实例
         Group group = GroupUtil.getGroup(groupId);
 
-        ListGroupMemberResponsePacket listGroupMemberResponsePacket = new ListGroupMemberResponsePacket();
+        ListGroupMemberResponseAbstractPacket listGroupMemberResponsePacket = new ListGroupMemberResponseAbstractPacket();
 
         //如果不存在该群组，就返回错误消息即可
         if (group == null) {

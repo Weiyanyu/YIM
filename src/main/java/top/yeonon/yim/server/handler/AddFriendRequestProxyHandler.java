@@ -6,8 +6,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.ibatis.session.SqlSession;
 import top.yeonon.yim.persistent.mapper.FriendListMapper;
-import top.yeonon.yim.protocol.packet.addFriend.AddFriendRequestPacket;
-import top.yeonon.yim.protocol.packet.addFriend.AddFriendResponsePacket;
+import top.yeonon.yim.protocol.packet.addFriend.AddFriendRequestAbstractPacket;
+import top.yeonon.yim.protocol.packet.addFriend.AddFriendResponseAbstractPacket;
 import top.yeonon.yim.util.DataBaseUtil;
 import top.yeonon.yim.util.SessionUtil;
 
@@ -19,7 +19,7 @@ import java.util.Set;
  * @date 2018/11/18 0018 13:38
  **/
 @ChannelHandler.Sharable
-public class AddFriendRequestProxyHandler extends SimpleChannelInboundHandler<AddFriendRequestPacket> {
+public class AddFriendRequestProxyHandler extends SimpleChannelInboundHandler<AddFriendRequestAbstractPacket> {
 
     public static final AddFriendRequestProxyHandler INSTANCE = new AddFriendRequestProxyHandler();
 
@@ -28,7 +28,7 @@ public class AddFriendRequestProxyHandler extends SimpleChannelInboundHandler<Ad
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, AddFriendRequestPacket requestPacket) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, AddFriendRequestAbstractPacket requestPacket) throws Exception {
         //先拿到对方和己方的ID
         long toUserId = requestPacket.getToUserId();
         long fromUserId = requestPacket.getFromUserId();
@@ -37,7 +37,7 @@ public class AddFriendRequestProxyHandler extends SimpleChannelInboundHandler<Ad
 
         //如果用户不在线，直接把消息发送回发送方
         if (toChannel == null || !toChannel.isActive()) {
-            AddFriendResponsePacket responsePacket = new AddFriendResponsePacket();
+            AddFriendResponseAbstractPacket responsePacket = new AddFriendResponseAbstractPacket();
             responsePacket.setSuccess(false);
             responsePacket.setErrorMessage("用户不在线，添加好友失败！");
             ctx.channel().writeAndFlush(responsePacket);
@@ -46,7 +46,7 @@ public class AddFriendRequestProxyHandler extends SimpleChannelInboundHandler<Ad
 
         //如果已经是好友关系，同样直接把消息发送回发送方
         if (checkFriendList(fromUserId, toUserId)) {
-            AddFriendResponsePacket responsePacket = new AddFriendResponsePacket();
+            AddFriendResponseAbstractPacket responsePacket = new AddFriendResponseAbstractPacket();
             responsePacket.setSuccess(false);
             responsePacket.setErrorMessage("该用户已经是您的好友，请不要重复发送请求！");
             ctx.channel().writeAndFlush(responsePacket);

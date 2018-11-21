@@ -1,7 +1,7 @@
 package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
-import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberRequestPacket;
+import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberRequestAbstractPacket;
 
 import java.util.Scanner;
 
@@ -23,7 +23,7 @@ public class ListGroupMemberCommandExecutor implements CommandExecutor {
         long groupId = scanner.nextLong();
 
         //构造请求对象
-        ListGroupMemberRequestPacket listGroupMemberRequestPacket = new ListGroupMemberRequestPacket();
+        ListGroupMemberRequestAbstractPacket listGroupMemberRequestPacket = new ListGroupMemberRequestAbstractPacket();
         listGroupMemberRequestPacket.setGroupId(groupId);
 
         channel.writeAndFlush(listGroupMemberRequestPacket);

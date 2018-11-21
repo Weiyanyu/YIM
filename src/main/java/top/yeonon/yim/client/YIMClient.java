@@ -13,8 +13,7 @@ import top.yeonon.yim.handler.Separator;
 import top.yeonon.yim.handler.YIMIdleStateHandler;
 import top.yeonon.yim.command.CommandExecutorManager;
 import top.yeonon.yim.command.LoginCommandExecutor;
-import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberRequestPacket;
-import top.yeonon.yim.server.handler.DeleteFriendRequestHandler;
+import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberRequestAbstractPacket;
 import top.yeonon.yim.util.SessionUtil;
 
 import java.util.Scanner;
@@ -118,7 +117,7 @@ public final class YIMClient {
         new Thread(() -> {
             for (int i = 0; i < 1000; i++) {
                 long groupId = 8;
-                ListGroupMemberRequestPacket listGroupMemberRequestPacket = new ListGroupMemberRequestPacket();
+                ListGroupMemberRequestAbstractPacket listGroupMemberRequestPacket = new ListGroupMemberRequestAbstractPacket();
                 listGroupMemberRequestPacket.setGroupId(groupId);
                 channel.writeAndFlush(listGroupMemberRequestPacket);
                 try {

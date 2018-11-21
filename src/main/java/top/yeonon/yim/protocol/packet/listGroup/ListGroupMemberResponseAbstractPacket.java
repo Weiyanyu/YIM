@@ -3,7 +3,7 @@ package top.yeonon.yim.protocol.packet.listGroup;
 import lombok.Data;
 import top.yeonon.yim.common.Session;
 import top.yeonon.yim.command.Command;
-import top.yeonon.yim.protocol.packet.Packet;
+import top.yeonon.yim.protocol.packet.AbstractPacket;
 
 import java.util.Set;
 
@@ -12,7 +12,7 @@ import java.util.Set;
  * @date 2018/11/16 0016 13:30
  **/
 @Data
-public class ListGroupMemberResponsePacket extends Packet {
+public class ListGroupMemberResponseAbstractPacket extends AbstractPacket {
 
     private long groupId;
 

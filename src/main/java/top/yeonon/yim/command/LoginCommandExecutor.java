@@ -2,7 +2,7 @@ package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
 import top.yeonon.yim.common.Attributes;
-import top.yeonon.yim.protocol.packet.login.LoginRequestPacket;
+import top.yeonon.yim.protocol.packet.login.LoginRequestAbstractPacket;
 
 import java.util.Scanner;
 
@@ -33,7 +33,7 @@ public class LoginCommandExecutor implements CommandExecutor {
         String username = scanner.nextLine();
         System.out.print("请输入密码： ");
         String password = scanner.nextLine();
-        LoginRequestPacket loginRequestPacket = new LoginRequestPacket(username, password);
+        LoginRequestAbstractPacket loginRequestPacket = new LoginRequestAbstractPacket(username, password);
 
         channel.writeAndFlush(loginRequestPacket);
     }

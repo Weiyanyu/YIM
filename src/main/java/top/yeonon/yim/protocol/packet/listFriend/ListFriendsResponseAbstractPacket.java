@@ -2,9 +2,7 @@ package top.yeonon.yim.protocol.packet.listFriend;
 
 import lombok.Data;
 import top.yeonon.yim.command.Command;
-import top.yeonon.yim.common.Session;
-import top.yeonon.yim.persistent.pojo.User;
-import top.yeonon.yim.protocol.packet.Packet;
+import top.yeonon.yim.protocol.packet.AbstractPacket;
 
 import java.util.Set;
 
@@ -13,7 +11,7 @@ import java.util.Set;
  * @date 2018/11/19 0019 18:31
  **/
 @Data
-public class ListFriendsResponsePacket extends Packet {
+public class ListFriendsResponseAbstractPacket extends AbstractPacket {
 
     private Set<String> usernames;
 

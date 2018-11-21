@@ -1,7 +1,7 @@
 package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
-import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageRequestPacket;
+import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageRequestAbstractPacket;
 
 import java.util.Scanner;
 
@@ -25,7 +25,7 @@ public class GroupMessageCommandExecutor implements CommandExecutor {
         String message = scanner.next();
 
         //构造请求对象
-        GroupMessageRequestPacket requestPacket = new GroupMessageRequestPacket();
+        GroupMessageRequestAbstractPacket requestPacket = new GroupMessageRequestAbstractPacket();
         requestPacket.setToGroupId(toGroupId);
         requestPacket.setMessage(message);
 

@@ -4,16 +4,10 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.group.ChannelGroup;
-import org.apache.ibatis.session.SqlSession;
 import top.yeonon.yim.common.Session;
-import top.yeonon.yim.persistent.mapper.GroupListMapper;
-import top.yeonon.yim.persistent.mapper.GroupMapper;
-import top.yeonon.yim.persistent.pojo.Group;
 import top.yeonon.yim.persistent.pojo.GroupList;
-import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageRequestPacket;
-import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageResponsePacket;
-import top.yeonon.yim.util.DataBaseUtil;
+import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageRequestAbstractPacket;
+import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageResponseAbstractPacket;
 import top.yeonon.yim.util.GroupUtil;
 import top.yeonon.yim.util.SessionUtil;
 
@@ -25,7 +19,7 @@ import java.util.List;
  * @date 2018/11/16 0016 15:26
  **/
 @ChannelHandler.Sharable
-public class GroupMessageRequestHandler extends SimpleChannelInboundHandler<GroupMessageRequestPacket> {
+public class GroupMessageRequestHandler extends SimpleChannelInboundHandler<GroupMessageRequestAbstractPacket> {
 
     public static final GroupMessageRequestHandler INSTANCE = new GroupMessageRequestHandler();
 
@@ -33,13 +27,13 @@ public class GroupMessageRequestHandler extends SimpleChannelInboundHandler<Grou
 
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, GroupMessageRequestPacket requestPacket) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, GroupMessageRequestAbstractPacket requestPacket) throws Exception {
         long groupId = requestPacket.getToGroupId();
         //拿到Session
         Session session = SessionUtil.getSession(ctx.channel());
 
         //如果该用户不在群组里，不要把消息发送到群组group里
-        GroupMessageResponsePacket responsePacket = new GroupMessageResponsePacket();
+        GroupMessageResponseAbstractPacket responsePacket = new GroupMessageResponseAbstractPacket();
         if (!GroupUtil.checkGroup(session.getUserId(), groupId)) {
             responsePacket.setSuccess(false);
             responsePacket.setErrorReason("您没有再该群组里，请先加入群组");

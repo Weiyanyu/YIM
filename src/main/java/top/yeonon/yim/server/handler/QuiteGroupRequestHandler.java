@@ -1,18 +1,10 @@
 package top.yeonon.yim.server.handler;
 
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.group.ChannelGroup;
-import org.apache.ibatis.session.SqlSession;
-import top.yeonon.yim.common.Session;
-import top.yeonon.yim.persistent.mapper.GroupListMapper;
-import top.yeonon.yim.persistent.mapper.GroupMapper;
-import top.yeonon.yim.persistent.pojo.GroupList;
-import top.yeonon.yim.protocol.packet.quiteGroup.QuiteGroupRequestPacket;
-import top.yeonon.yim.protocol.packet.quiteGroup.QuiteGroupResponsePacket;
-import top.yeonon.yim.util.DataBaseUtil;
+import top.yeonon.yim.protocol.packet.quiteGroup.QuiteGroupRequestAbstractPacket;
+import top.yeonon.yim.protocol.packet.quiteGroup.QuiteGroupResponseAbstractPacket;
 import top.yeonon.yim.util.GroupUtil;
 import top.yeonon.yim.util.SessionUtil;
 
@@ -22,7 +14,7 @@ import top.yeonon.yim.util.SessionUtil;
  * @date 2018/11/16 0016 14:49
  **/
 @ChannelHandler.Sharable
-public class QuiteGroupRequestHandler extends SimpleChannelInboundHandler<QuiteGroupRequestPacket> {
+public class QuiteGroupRequestHandler extends SimpleChannelInboundHandler<QuiteGroupRequestAbstractPacket> {
 
 
     public static final QuiteGroupRequestHandler INSTANCE = new QuiteGroupRequestHandler();
@@ -30,7 +22,7 @@ public class QuiteGroupRequestHandler extends SimpleChannelInboundHandler<QuiteG
     private QuiteGroupRequestHandler() {}
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, QuiteGroupRequestPacket requestPacket) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, QuiteGroupRequestAbstractPacket requestPacket) throws Exception {
         long groupId = requestPacket.getGroupId();
 
         //把channel从group里remove就行了
@@ -42,7 +34,7 @@ public class QuiteGroupRequestHandler extends SimpleChannelInboundHandler<QuiteG
         }
 
         //构造响应对象
-        QuiteGroupResponsePacket responsePacket = new QuiteGroupResponsePacket();
+        QuiteGroupResponseAbstractPacket responsePacket = new QuiteGroupResponseAbstractPacket();
         responsePacket.setSuccess(true);
         responsePacket.setGroupId(groupId);
 

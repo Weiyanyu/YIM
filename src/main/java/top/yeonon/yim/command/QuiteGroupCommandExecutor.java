@@ -1,7 +1,7 @@
 package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
-import top.yeonon.yim.protocol.packet.quiteGroup.QuiteGroupRequestPacket;
+import top.yeonon.yim.protocol.packet.quiteGroup.QuiteGroupRequestAbstractPacket;
 
 import java.util.Scanner;
 
@@ -27,7 +27,7 @@ public class QuiteGroupCommandExecutor implements CommandExecutor {
         long groupId = scanner.nextLong();
 
         //构造请求对象
-        QuiteGroupRequestPacket requestPacket = new QuiteGroupRequestPacket();
+        QuiteGroupRequestAbstractPacket requestPacket = new QuiteGroupRequestAbstractPacket();
         requestPacket.setGroupId(groupId);
 
         channel.writeAndFlush(requestPacket);

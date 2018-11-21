@@ -3,12 +3,9 @@ package top.yeonon.yim.server.handler;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import top.yeonon.yim.client.handler.AddFriendResponseHandler;
-import top.yeonon.yim.client.handler.DeleteFriendResponseHandler;
 import top.yeonon.yim.command.Command;
-import top.yeonon.yim.protocol.packet.Packet;
-import top.yeonon.yim.protocol.packet.exception.ExceptionPacket;
-import top.yeonon.yim.protocol.packet.listFriend.ListFriendsRequestPacket;
+import top.yeonon.yim.protocol.packet.AbstractPacket;
+import top.yeonon.yim.protocol.packet.exception.ExceptionAbstractPacket;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,11 +15,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2018/11/17 0017 13:20
  **/
 @ChannelHandler.Sharable
-public class YIMHandler extends SimpleChannelInboundHandler<Packet> {
+public class YIMHandler extends SimpleChannelInboundHandler<AbstractPacket> {
 
     public static final YIMHandler INSTANCE = new YIMHandler();
 
-    private static final Map<Byte, SimpleChannelInboundHandler<? extends Packet>> handlerMap;
+    private static final Map<Byte, SimpleChannelInboundHandler<? extends AbstractPacket>> handlerMap;
 
     static {
         handlerMap = new ConcurrentHashMap<>();
@@ -41,14 +38,14 @@ public class YIMHandler extends SimpleChannelInboundHandler<Packet> {
 
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Packet msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, AbstractPacket msg) throws Exception {
         //如果遇到不知名的指令，之前的handler肯定会已经处理了，所以这里不需要担心空指针
         handlerMap.get(msg.getCommand()).channelRead(ctx, msg);
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        ExceptionPacket exceptionPacket = new ExceptionPacket();
+        ExceptionAbstractPacket exceptionPacket = new ExceptionAbstractPacket();
         exceptionPacket.setErrorReason("服务器异常!");
         //在服务端还是要打印异常堆栈的
         cause.printStackTrace();

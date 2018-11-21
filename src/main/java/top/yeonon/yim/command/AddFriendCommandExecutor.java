@@ -1,7 +1,7 @@
 package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
-import top.yeonon.yim.protocol.packet.addFriend.AddFriendRequestPacket;
+import top.yeonon.yim.protocol.packet.addFriend.AddFriendRequestAbstractPacket;
 import top.yeonon.yim.util.SessionUtil;
 
 import java.util.Scanner;
@@ -41,7 +41,7 @@ public class AddFriendCommandExecutor implements CommandExecutor {
         }
 
         //构造请求对象
-        AddFriendRequestPacket requestPacket = new AddFriendRequestPacket();
+        AddFriendRequestAbstractPacket requestPacket = new AddFriendRequestAbstractPacket();
         requestPacket.setToUserId(toUserId);
         requestPacket.setFromUserId(fromUserId);
         requestPacket.setFromUsername(fromUsername);

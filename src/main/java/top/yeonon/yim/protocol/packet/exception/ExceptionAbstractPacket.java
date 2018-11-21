@@ -1,14 +1,14 @@
 package top.yeonon.yim.protocol.packet.exception;
 
 import lombok.Data;
-import top.yeonon.yim.protocol.packet.Packet;
+import top.yeonon.yim.protocol.packet.AbstractPacket;
 
 /**
  * @Author yeonon
  * @date 2018/11/20 0020 17:46
  **/
 @Data
-public class ExceptionPacket extends Packet {
+public class ExceptionAbstractPacket extends AbstractPacket {
 
     private String errorReason;
 

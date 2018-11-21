@@ -2,8 +2,7 @@ package top.yeonon.yim.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import top.yeonon.yim.common.Attributes;
-import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponsePacket;
+import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponseAbstractPacket;
 
 
 /**
@@ -11,10 +10,10 @@ import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponsePacket;
  * @Author yeonon
  * @date 2018/11/16 0016 12:39
  **/
-public class CreateGroupResponseHandler extends SimpleChannelInboundHandler<CreateGroupResponsePacket> {
+public class CreateGroupResponseHandler extends SimpleChannelInboundHandler<CreateGroupResponseAbstractPacket> {
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, CreateGroupResponsePacket createGroupResponsePacket) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, CreateGroupResponseAbstractPacket createGroupResponsePacket) throws Exception {
 
         System.out.print("群创建成功，id 为[" + createGroupResponsePacket.getGroupId() + "],");
         System.out.println("名称为： " + createGroupResponsePacket.getGroupName());

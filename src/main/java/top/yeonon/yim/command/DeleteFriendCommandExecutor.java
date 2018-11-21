@@ -1,7 +1,7 @@
 package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
-import top.yeonon.yim.protocol.packet.deleteFriend.DeleteFriendRequestPacket;
+import top.yeonon.yim.protocol.packet.deleteFriend.DeleteFriendRequestAbstractPacket;
 import top.yeonon.yim.util.SessionUtil;
 
 import java.util.Scanner;
@@ -28,7 +28,7 @@ public class DeleteFriendCommandExecutor implements CommandExecutor {
             return;
         }
 
-        DeleteFriendRequestPacket requestPacket = new DeleteFriendRequestPacket();
+        DeleteFriendRequestAbstractPacket requestPacket = new DeleteFriendRequestAbstractPacket();
         requestPacket.setUserId(toUserId);
         channel.writeAndFlush(requestPacket);
     }

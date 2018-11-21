@@ -7,9 +7,8 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.ibatis.session.SqlSession;
 import top.yeonon.yim.common.Session;
 import top.yeonon.yim.persistent.mapper.FriendListMapper;
-import top.yeonon.yim.persistent.pojo.FriendList;
-import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageRequestPacket;
-import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageResponsePacket;
+import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageRequestAbstractPacket;
+import top.yeonon.yim.protocol.packet.singleMessage.SingleMessageResponseAbstractPacket;
 import top.yeonon.yim.util.DataBaseUtil;
 import top.yeonon.yim.util.SessionUtil;
 
@@ -20,14 +19,14 @@ import java.util.Set;
  * @date 2018/11/15 0015 21:33
  **/
 @ChannelHandler.Sharable
-public class SingleMessageRequestHandler extends SimpleChannelInboundHandler<SingleMessageRequestPacket> {
+public class SingleMessageRequestHandler extends SimpleChannelInboundHandler<SingleMessageRequestAbstractPacket> {
 
     public static final SingleMessageRequestHandler INSTANCE = new SingleMessageRequestHandler();
 
     private SingleMessageRequestHandler() {}
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, SingleMessageRequestPacket singleMessageRequestPacket) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, SingleMessageRequestAbstractPacket singleMessageRequestPacket) throws Exception {
         long toUserId = singleMessageRequestPacket.getToUserId();
         Channel toUserChannel = SessionUtil.getChannel(toUserId);
 
@@ -39,7 +38,7 @@ public class SingleMessageRequestHandler extends SimpleChannelInboundHandler<Sin
 
 
         //确定在线之后，再构造响应对象
-        SingleMessageResponsePacket singleMessageResponsePacket = new SingleMessageResponsePacket();
+        SingleMessageResponseAbstractPacket singleMessageResponsePacket = new SingleMessageResponseAbstractPacket();
 
         //拿到请求发的Session
         Session requestSession = SessionUtil.getSession(ctx.channel());

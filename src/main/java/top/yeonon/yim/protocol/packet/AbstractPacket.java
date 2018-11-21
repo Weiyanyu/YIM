@@ -9,7 +9,7 @@ import lombok.Data;
  * @date 2018/11/15 0015 17:58
  **/
 @Data
-public abstract class Packet {
+public abstract class AbstractPacket {
 
     private byte version = 1;
 

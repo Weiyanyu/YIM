@@ -7,8 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import top.yeonon.yim.common.Session;
 import top.yeonon.yim.persistent.mapper.UserMapper;
 import top.yeonon.yim.persistent.pojo.User;
-import top.yeonon.yim.protocol.packet.login.LoginRequestPacket;
-import top.yeonon.yim.protocol.packet.login.LoginResponsePacket;
+import top.yeonon.yim.protocol.packet.login.LoginRequestAbstractPacket;
+import top.yeonon.yim.protocol.packet.login.LoginResponseAbstractPacket;
 import top.yeonon.yim.util.DataBaseUtil;
 import top.yeonon.yim.util.SessionUtil;
 /**
@@ -17,15 +17,15 @@ import top.yeonon.yim.util.SessionUtil;
  * @date 2018/11/15 0015 18:58
  **/
 @ChannelHandler.Sharable
-public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
+public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestAbstractPacket> {
 
     public static final LoginRequestHandler INSTANCE = new LoginRequestHandler();
 
     private LoginRequestHandler() {}
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket requestPacket) throws Exception {
-        LoginResponsePacket responsePacket = new LoginResponsePacket();
+    protected void channelRead0(ChannelHandlerContext ctx, LoginRequestAbstractPacket requestPacket) throws Exception {
+        LoginResponseAbstractPacket responsePacket = new LoginResponseAbstractPacket();
         responsePacket.setVersion(requestPacket.getVersion());
 
         String username = requestPacket.getUsername();
@@ -52,7 +52,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
      * @param requestPacket
      * @return
      */
-    private boolean validate(LoginRequestPacket requestPacket, LoginResponsePacket responsePacket) {
+    private boolean validate(LoginRequestAbstractPacket requestPacket, LoginResponseAbstractPacket responsePacket) {
         //sqlSession最好是线程私有的，而且用完之后要关闭，避免资源泄露
         try (SqlSession sqlSession = DataBaseUtil.getSqlSession()){
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);

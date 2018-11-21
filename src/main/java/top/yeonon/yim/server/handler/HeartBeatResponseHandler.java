@@ -3,15 +3,15 @@ package top.yeonon.yim.server.handler;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import top.yeonon.yim.protocol.packet.heartBeat.HeartBeatRequestPacket;
-import top.yeonon.yim.protocol.packet.heartBeat.HeartBeatResponsePacket;
+import top.yeonon.yim.protocol.packet.heartBeat.HeartBeatRequestAbstractPacket;
+import top.yeonon.yim.protocol.packet.heartBeat.HeartBeatResponseAbstractPacket;
 
 /**
  * @Author yeonon
  * @date 2018/11/17 0017 12:00
  **/
 @ChannelHandler.Sharable
-public class HeartBeatResponseHandler extends SimpleChannelInboundHandler<HeartBeatRequestPacket> {
+public class HeartBeatResponseHandler extends SimpleChannelInboundHandler<HeartBeatRequestAbstractPacket> {
 
     public static final HeartBeatResponseHandler INSTANCE = new HeartBeatResponseHandler();
 
@@ -20,7 +20,7 @@ public class HeartBeatResponseHandler extends SimpleChannelInboundHandler<HeartB
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, HeartBeatRequestPacket msg) throws Exception {
-        ctx.channel().writeAndFlush(new HeartBeatResponsePacket());
+    protected void channelRead0(ChannelHandlerContext ctx, HeartBeatRequestAbstractPacket msg) throws Exception {
+        ctx.channel().writeAndFlush(new HeartBeatResponseAbstractPacket());
     }
 }

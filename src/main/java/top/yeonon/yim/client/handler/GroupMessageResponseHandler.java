@@ -2,16 +2,16 @@ package top.yeonon.yim.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageResponsePacket;
+import top.yeonon.yim.protocol.packet.groupMessage.GroupMessageResponseAbstractPacket;
 
 /**
  * 群组消息
  * @Author yeonon
  * @date 2018/11/16 0016 15:29
  **/
-public class GroupMessageResponseHandler extends SimpleChannelInboundHandler<GroupMessageResponsePacket> {
+public class GroupMessageResponseHandler extends SimpleChannelInboundHandler<GroupMessageResponseAbstractPacket> {
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, GroupMessageResponsePacket responsePacket) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, GroupMessageResponseAbstractPacket responsePacket) throws Exception {
         if (responsePacket.isSuccess()) {
             long fromUserId = responsePacket.getFromUserId();
             long fromGroupId = responsePacket.getFromGroupId();

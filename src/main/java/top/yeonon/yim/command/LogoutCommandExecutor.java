@@ -2,7 +2,7 @@ package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
 import top.yeonon.yim.common.Session;
-import top.yeonon.yim.protocol.packet.logout.LogoutRequestPacket;
+import top.yeonon.yim.protocol.packet.logout.LogoutRequestAbstractPacket;
 import top.yeonon.yim.util.SessionUtil;
 
 import java.util.Scanner;
@@ -32,7 +32,7 @@ public class LogoutCommandExecutor implements CommandExecutor {
         }
         Session session = SessionUtil.getSession(channel);
         //构造一个请求对象
-        LogoutRequestPacket logoutRequestPacket = new LogoutRequestPacket();
+        LogoutRequestAbstractPacket logoutRequestPacket = new LogoutRequestAbstractPacket();
         logoutRequestPacket.setUserId(session.getUserId());
         logoutRequestPacket.setUsername(session.getUsername());
 

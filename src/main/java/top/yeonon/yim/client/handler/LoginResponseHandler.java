@@ -4,7 +4,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import top.yeonon.yim.common.Attributes;
 import top.yeonon.yim.common.Session;
-import top.yeonon.yim.protocol.packet.login.LoginResponsePacket;
+import top.yeonon.yim.protocol.packet.login.LoginResponseAbstractPacket;
 import top.yeonon.yim.util.SessionUtil;
 
 /**
@@ -14,10 +14,10 @@ import top.yeonon.yim.util.SessionUtil;
  * @Author yeonon
  * @date 2018/11/15 0015 19:11
  **/
-public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponsePacket> {
+public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponseAbstractPacket> {
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, LoginResponsePacket loginResponsePacket) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, LoginResponseAbstractPacket loginResponsePacket) throws Exception {
         //如果登录请求是成功的，就打印消息
         if (loginResponsePacket.isSuccess()) {
             String username = loginResponsePacket.getUser().getUsername();

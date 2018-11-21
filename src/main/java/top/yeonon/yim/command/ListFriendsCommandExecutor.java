@@ -1,8 +1,7 @@
 package top.yeonon.yim.command;
 
 import io.netty.channel.Channel;
-import top.yeonon.yim.common.Session;
-import top.yeonon.yim.protocol.packet.listFriend.ListFriendsRequestPacket;
+import top.yeonon.yim.protocol.packet.listFriend.ListFriendsRequestAbstractPacket;
 import top.yeonon.yim.util.SessionUtil;
 
 import java.util.Scanner;
@@ -20,7 +19,7 @@ public class ListFriendsCommandExecutor implements CommandExecutor {
     @Override
     public void exec(Scanner scanner, Channel channel) {
 
-        ListFriendsRequestPacket requestPacket = new ListFriendsRequestPacket();
+        ListFriendsRequestAbstractPacket requestPacket = new ListFriendsRequestAbstractPacket();
         requestPacket.setUserId(SessionUtil.getSession(channel).getUserId());
         channel.writeAndFlush(requestPacket);
     }

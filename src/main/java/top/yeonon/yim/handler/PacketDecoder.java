@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import top.yeonon.yim.protocol.codec.PacketCodec;
-import top.yeonon.yim.protocol.packet.Packet;
 
 import java.util.List;
 

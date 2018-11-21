@@ -8,34 +8,26 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.log4j.Logger;
-import top.yeonon.yim.common.Session;
-import top.yeonon.yim.persistent.mapper.GroupListMapper;
-import top.yeonon.yim.persistent.mapper.GroupMapper;
-import top.yeonon.yim.persistent.pojo.Group;
-import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestPacket;
-import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponsePacket;
-import top.yeonon.yim.util.DataBaseUtil;
+import top.yeonon.yim.protocol.packet.createGroup.CreateGroupRequestAbstractPacket;
+import top.yeonon.yim.protocol.packet.createGroup.CreateGroupResponseAbstractPacket;
 import top.yeonon.yim.util.GroupUtil;
 import top.yeonon.yim.util.SessionUtil;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @Author yeonon
  * @date 2018/11/16 0016 12:33
  **/
 @ChannelHandler.Sharable
-public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequestPacket> {
+public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequestAbstractPacket> {
 
     public static final CreateGroupRequestHandler INSTANCE = new CreateGroupRequestHandler();
 
     private CreateGroupRequestHandler() {}
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequestPacket createGroupRequestPacket) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequestAbstractPacket createGroupRequestPacket) throws Exception {
         List<String> usernameList = Lists.newArrayList();
         //channelGroup即channel集合
         ChannelGroup channelGroup = new DefaultChannelGroup(ctx.executor());
@@ -55,7 +47,7 @@ public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<Creat
         long groupId = GroupUtil.createGroup(createGroupRequestPacket.getGroupName(), userInfo);
 
         //填充响应对象
-        CreateGroupResponsePacket createGroupResponsePacket = new CreateGroupResponsePacket();
+        CreateGroupResponseAbstractPacket createGroupResponsePacket = new CreateGroupResponseAbstractPacket();
         createGroupResponsePacket.setGroupId(groupId);
         createGroupResponsePacket.setSuccess(true);
         createGroupResponsePacket.setUsernameList(usernameList);

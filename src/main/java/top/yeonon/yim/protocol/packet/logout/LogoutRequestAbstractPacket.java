@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.yeonon.yim.command.Command;
-import top.yeonon.yim.protocol.packet.Packet;
+import top.yeonon.yim.protocol.packet.AbstractPacket;
 
 /**
  * @Author yeonon
@@ -13,7 +13,7 @@ import top.yeonon.yim.protocol.packet.Packet;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LogoutRequestPacket extends Packet {
+public class LogoutRequestAbstractPacket extends AbstractPacket {
 
     private long userId;
     private String username;

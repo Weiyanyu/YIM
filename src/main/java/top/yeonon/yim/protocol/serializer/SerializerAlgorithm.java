@@ -7,6 +7,7 @@ package top.yeonon.yim.protocol.serializer;
  **/
 public enum SerializerAlgorithm {
 
+    /*序列化算法，JSON表示序列化后的格式是JSON*/
     JSON((byte)1, "JSON");
 
     private byte code;
