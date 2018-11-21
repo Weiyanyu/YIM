@@ -4,6 +4,7 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.util.concurrent.Future;
 import org.apache.log4j.Logger;
 import top.yeonon.yim.handler.*;
 import top.yeonon.yim.server.handler.*;
@@ -16,6 +17,8 @@ import top.yeonon.yim.server.handler.*;
 public final class YIMServer {
 
     private static final Logger log = Logger.getLogger(YIMServer.class);
+
+    private static Channel channel = null;
 
     private static void start(int port, boolean bindRetry) {
         ServerBootstrap server = new ServerBootstrap();
@@ -45,12 +48,27 @@ public final class YIMServer {
                     }
                 });
 
-        bind(server, port, bindRetry);
+        channel = bind(server, port, bindRetry);
 
     }
 
-    private static void bind(ServerBootstrap server, int port, boolean bindRetry) {
-        server.bind(port).addListener((future -> {
+    /**
+     * 优雅停机
+     */
+    private static void stop() {
+        Future future = channel.eventLoop().shutdownGracefully();
+
+        if (future.isSuccess()) {
+            System.out.println("关闭服务器成功！");
+        } else {
+            System.out.println("关闭服务器失败！");
+        }
+    }
+
+
+
+    private static Channel bind(ServerBootstrap server, int port, boolean bindRetry) {
+        return server.bind(port).addListener((future -> {
             if (future.isSuccess()) {
                 log.info("绑定端口成功！服务端正在监听端口：" + port);
             } else {
@@ -61,7 +79,7 @@ public final class YIMServer {
                     log.info("绑定端口失败！服务端启动失败！");
                 }
             }
-        }));
+        })).channel();
     }
 
 
@@ -70,9 +88,7 @@ public final class YIMServer {
         int port = 8000;
         YIMServer.start(port, true);
 
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("服务器关闭！");
-        }));
+        Runtime.getRuntime().addShutdownHook(new Thread(YIMServer::stop));
     }
 
 }
