@@ -25,6 +25,7 @@ import java.util.Set;
 
 /**
  * 群组成员列表
+ *
  * @Author yeonon
  * @date 2018/11/16 0016 13:33
  **/
@@ -34,13 +35,14 @@ public class ListGroupMemberRequestHandler extends SimpleChannelInboundHandler<L
 
     public static final ListGroupMemberRequestHandler INSTANCE = new ListGroupMemberRequestHandler();
 
-    private ListGroupMemberRequestHandler() {}
+    private ListGroupMemberRequestHandler() {
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ListGroupMemberRequestPacket listGroupMemberRequestPacket) throws Exception {
         long groupId = listGroupMemberRequestPacket.getGroupId();
         //先拿到channelGroup实例
-        Group group = getGroup(groupId);
+        Group group = GroupUtil.getGroup(groupId);
 
         ListGroupMemberResponsePacket listGroupMemberResponsePacket = new ListGroupMemberResponsePacket();
 
@@ -54,7 +56,7 @@ public class ListGroupMemberRequestHandler extends SimpleChannelInboundHandler<L
 
         //把群组里的用户信息放入到Set集合里
         Set<Session> sessionSet = new HashSet<>();
-    for (GroupList groupList : getGroupMember(groupId)) {
+        for (GroupList groupList : GroupUtil.getGroupMember(groupId)) {
             sessionSet.add(new Session(groupList.getUserId(), groupList.getUsername()));
         }
         //填充响应对象
@@ -65,17 +67,17 @@ public class ListGroupMemberRequestHandler extends SimpleChannelInboundHandler<L
         ctx.channel().writeAndFlush(listGroupMemberResponsePacket);
     }
 
-    private Group getGroup(long groupId) {
-        try (SqlSession sqlSession = DataBaseUtil.getSqlSession()){
-            GroupMapper mapper = sqlSession.getMapper(GroupMapper.class);
-            return mapper.selectByPrimaryKey(groupId);
-        }
-    }
+//    private Group getGroup(long groupId) {
+//        try (SqlSession sqlSession = DataBaseUtil.getSqlSession()) {
+//            GroupMapper mapper = sqlSession.getMapper(GroupMapper.class);
+//            return mapper.selectByPrimaryKey(groupId);
+//        }
+//    }
 
-    private List<GroupList> getGroupMember(long groupId) {
-        try (SqlSession sqlSession = DataBaseUtil.getSqlSession()) {
-            GroupListMapper mapper = sqlSession.getMapper(GroupListMapper.class);
-            return mapper.selectGroupListByGroupId(groupId);
-        }
-    }
+//    private List<GroupList> getGroupMember(long groupId) {
+//        try (SqlSession sqlSession = DataBaseUtil.getSqlSession()) {
+//            GroupListMapper mapper = sqlSession.getMapper(GroupListMapper.class);
+//            return mapper.selectGroupListByGroupId(groupId);
+//        }
+//    }
 }

@@ -65,7 +65,4 @@ public class GroupMessageRequestHandler extends SimpleChannelInboundHandler<Grou
         }
 
     }
-
-
-
 }

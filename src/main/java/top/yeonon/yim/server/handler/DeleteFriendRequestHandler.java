@@ -81,7 +81,5 @@ public class DeleteFriendRequestHandler extends SimpleChannelInboundHandler<Dele
             sqlSession.commit();
             return rowCount >= 0;
         }
-
-
     }
 }

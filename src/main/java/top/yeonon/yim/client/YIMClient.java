@@ -13,6 +13,7 @@ import top.yeonon.yim.handler.Separator;
 import top.yeonon.yim.handler.YIMIdleStateHandler;
 import top.yeonon.yim.command.CommandExecutorManager;
 import top.yeonon.yim.command.LoginCommandExecutor;
+import top.yeonon.yim.protocol.packet.listGroup.ListGroupMemberRequestPacket;
 import top.yeonon.yim.server.handler.DeleteFriendRequestHandler;
 import top.yeonon.yim.util.SessionUtil;
 
@@ -81,6 +82,7 @@ public final class YIMClient {
                 log.info("客户端连接成功！");
                 Channel channel = ((ChannelFuture) future).channel();
                 startCommandLine(channel);
+//                statrTest(channel);
             } else if (retry == 0) {
                 log.info("连接失败！放弃连接！");
             } else {
@@ -106,6 +108,25 @@ public final class YIMClient {
                 }
             }
 
+        }).start();
+    }
+
+
+    private static void statrTest(Channel channel) {
+        Scanner scanner = new Scanner(System.in);
+        LoginCommandExecutor.INSTANCE.exec(scanner, channel);
+        new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                long groupId = 8;
+                ListGroupMemberRequestPacket listGroupMemberRequestPacket = new ListGroupMemberRequestPacket();
+                listGroupMemberRequestPacket.setGroupId(groupId);
+                channel.writeAndFlush(listGroupMemberRequestPacket);
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }).start();
     }
 

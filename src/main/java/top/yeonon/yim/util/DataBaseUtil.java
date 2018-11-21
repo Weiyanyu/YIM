@@ -23,13 +23,14 @@ public final class DataBaseUtil {
             inputStream = Resources.getResourceAsStream(resource);
             SQL_SESSION_FACTORY = new SqlSessionFactoryBuilder().build(inputStream);
         } catch (IOException e) {
-            System.err.println("找到对应的配置文件，请确保" + resource + "文件存在与类路径下");
+            System.err.println("找不到对应的配置文件，请确保" + resource + "文件存在与类路径下");
         }
     }
 
     public static SqlSession getSqlSession() {
         return SQL_SESSION_FACTORY.openSession();
     }
+
 
 
 }
